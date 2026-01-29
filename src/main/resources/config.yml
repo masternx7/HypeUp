@@ -1,0 +1,108 @@
+
+
+general:
+  # Timezone for daily reset (IANA timezone format)
+  # Examples: Asia/Bangkok, Asia/Tokyo, America/New_York, Europe/London
+  # Full list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  timezone: Asia/Bangkok
+  # Check interval for expired streaks (in minutes)
+  check-interval-minutes: 5
+  debug: false
+  # Cross-server mode (requires MySQL)
+  cross-server: false
+
+database:
+  # SQLITE, MYSQL
+  type: SQLITE
+  mysql:
+    host: localhost
+    port: 3306
+    database: hypeup
+    username: root
+    password: password
+    use-ssl: false
+    pool-size: 10
+  sqlite:
+    file: hypeup.db
+
+fire-streak:
+  days-to-start: 3
+  days-before-expire: 1
+  days-to-restore: 3
+  max-restore-count: 3
+  limit-partners: false
+  # Maximum number of partners (used when limit-partners is true)
+  max-partners: 5
+
+missions:
+  # Chat Interaction
+  chat:
+    enabled: true
+    min-messages: 2
+    min-delay-seconds: 5
+    max-delay-seconds: 10
+
+  # Shift Interaction
+  shift:
+    enabled: true
+    required-interactions: 2
+    max-distance: 3
+  
+  # Item Gift
+  item-gift:
+    enabled: true
+
+fire-colors:
+  ranges:
+    1-2:
+      color: "&#FF0000"
+      display: "♨"
+      description: "Starting Fire"
+    3-6:
+      color: "&#FF6B00"
+      display: "♨"
+      description: "Blazing Fire"
+    7-13:
+      color: "&#FFD700"
+      display: "♨"
+      description: "Burning Bright!"
+    14-29:
+      color: "&#00FF00"
+      display: "♨"
+      description: "Strong Fire"
+    30-59:
+      color: "&#00FFFF"
+      display: "♨"
+      description: "Expert Fire"
+    60-89:
+      color: "&#0080FF"
+      display: "♨"
+      description: "Master Fire"
+    90-179:
+      color: "&#8000FF"
+      display: "♨"
+      description: "Legendary Fire"
+    180-999999:
+      color: "&#FF00FF"
+      display: "♨"
+      description: "Eternal Fire!"
+
+rewards:
+  streak-rewards:
+    enabled: true
+    7:
+      - "give %player% diamond 5"
+      - "tell %player% &aYou received a 7-day streak reward!"
+    14:
+      - "give %player% diamond 10"
+      - "tell %player% &aYou received a 14-day streak reward!"
+    30:
+      - "give %player% diamond 32"
+      - "give %player% netherite_ingot 5"
+      - "tell %player% &6You received a special 30-day reward!"
+    60:
+      - "give %player% netherite_ingot 16"
+      - "tell %player% &6You received an amazing 60-day reward!"
+    90:
+      - "give %player% nether_star 1"
+      - "tell %player% &6&lYou are a Fire Legend!"

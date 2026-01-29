@@ -1,0 +1,23 @@
+name: HypeUp
+version: '${project.version}'
+main: dev.mastern.plugins.HypeUp
+api-version: '1.21'
+authors: [ MasterN ]
+website: https://github.com/masternx7
+description: TikTok-style fire streak system for Minecraft
+softdepend: [ PlaceholderAPI ]
+
+commands:
+  hypeup:
+    description: Main command for HypeUp plugin
+    usage: /<command> [help|send|info|list|reload]
+    aliases: [hu, fire]
+    permission: hypeup.use
+
+permissions:
+  hypeup.use:
+    description: Allows using basic HypeUp commands
+    default: true
+  hypeup.admin:
+    description: Allows using admin commands (reload)
+    default: op

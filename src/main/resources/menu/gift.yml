@@ -1,0 +1,93 @@
+title: "&#FF6B6BHypeUp &#FFD93D- Send Items to {target}"
+size: 54
+
+item-slots:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+
+partner-info:
+  slot: 4
+  material: PLAYER_HEAD
+  skull-owner: "{target}"
+  name: "&#FFD93D{target}"
+  lore:
+    - ""
+    - "{fire-color}{fire-display} &#FFD93D({streak} days)"
+    - "&#00FF00Restore: &#FFD93D{restore}/{max}"
+    - ""
+    - "&#FF6B6BPlace items below to send"
+
+confirm:
+  slot: 48
+  material: LIME_CONCRETE
+  name: "&#00FF00&lConfirm Send"
+  lore:
+    - ""
+    - "&#FFD93DItem count: &#FF6B6B{count}"
+    - ""
+    - "&#00FF00Click to send items to {target}"
+  sound: ENTITY_PLAYER_LEVELUP
+
+cancel:
+  slot: 50
+  material: RED_CONCRETE
+  name: "&#FF0000&lCancel"
+  lore:
+    - ""
+    - "&#FFD93DClick to close GUI"
+  sound: BLOCK_NOTE_BLOCK_BASS
+
+border:
+  enabled: true
+  material: GRAY_STAINED_GLASS_PANE
+  name: " "
+  slots:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 17
+    - 18
+    - 26
+    - 27
+    - 35
+    - 36
+    - 37
+    - 38
+    - 39
+    - 40
+    - 41
+    - 42
+    - 43
+    - 44
+    - 45
+    - 46
+    - 47
+    - 49
+    - 51
+    - 52
+    - 53

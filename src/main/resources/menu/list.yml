@@ -1,0 +1,64 @@
+title: "&#FF6B6BHypeUp &#FFD93D- Your Fire Partners"
+size: 54
+
+partner-item:
+  material: PLAYER_HEAD
+  skull-owner: "{target}"
+  name: "&#FFD93D{target}"
+  lore:
+    - ""
+    - "{fire-color}{fire-display} &#FFD93D({streak} days)"
+    - "&#00FF00Restore: &#FFD93D{restore}/{max}"
+    - "&#00FF00Last: &#FFD93D{last}"
+    - ""
+    - "&#FF6B6BClick to send items"
+  sound: UI_BUTTON_CLICK
+
+no-partners:
+  slot: 22
+  material: BARRIER
+  name: "&#FF0000No Fire Partners"
+  lore:
+    - ""
+    - "&#FFD93DStart a fire streak with your friends!"
+    - "&#FFD93DUse command &#FF6B6B/hypeup send <player>"
+
+close:
+  slot: 49
+  material: BARRIER
+  name: "&#FF0000&lClose"
+  lore:
+    - ""
+    - "&#FFD93DClick to close GUI"
+  sound: BLOCK_NOTE_BLOCK_BASS
+
+border:
+  enabled: true
+  material: ORANGE_STAINED_GLASS_PANE
+  name: " "
+  slots:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 17
+    - 18
+    - 26
+    - 27
+    - 35
+    - 36
+    - 44
+    - 45
+    - 46
+    - 47
+    - 48
+    - 50
+    - 51
+    - 52
+    - 53

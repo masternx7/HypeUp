@@ -1,0 +1,101 @@
+title: "&#FF6B6BHypeUp &#FFD93D- {target}"
+size: 27
+
+player-info:
+  slot: 4
+  material: PLAYER_HEAD
+  skull-owner: "{target}"
+  name: "&#FFD93D{target}"
+  lore:
+    - ""
+    - "{fire-color}{fire-display}"
+    - "&#FFD93D{streak} days streak"
+    - ""
+    - "&#FF6B6B{fire-description}"
+
+statistics:
+  slot: 11
+  material: BOOK
+  name: "&#FFD93D&lStatistics"
+  lore:
+    - ""
+    - "&#00FF00Total Partners: &#FFD93D{total-partners}"
+    - "&#00FF00Max Streak: &#FFD93D{max-streak} &#00FF00days"
+    - "&#00FF00Total Fires: &#FFD93D{total-fires}"
+
+restore-info:
+  slot: 13
+  material: TOTEM_OF_UNDYING
+  name: "&#FFD93D&lRestore"
+  lore:
+    - ""
+    - "&#00FF00Used: &#FFD93D{restore}/{max}"
+    - "&#00FF00Time left: &#FFD93D{restore-days} &#00FF00days"
+    - ""
+    - "&#FF6B6BYou can restore fire"
+    - "&#FF6B6Bwithin {restore-days} days"
+
+missions-info:
+  slot: 15
+  material: WRITABLE_BOOK
+  name: "&#FFD93D&lToday's Missions"
+  lore:
+    - ""
+    - "&#00FF00Chat: {chat-status}"
+    - "&#00FF00Shift: {shift-status}"
+    - "&#00FF00Gift: {gift-status}"
+    - ""
+    - "&#FF6B6BComplete all missions to light fire!"
+
+send-gift:
+  slot: 22
+  material: CHEST
+  name: "&#00FF00&lSend Items"
+  lore:
+    - ""
+    - "&#FFD93DClick to open send items GUI"
+  sound: UI_BUTTON_CLICK
+
+back:
+  slot: 18
+  material: ARROW
+  name: "&#FFD93D&l← Back"
+  lore:
+    - ""
+    - "&#FFD93DClick to go back"
+  sound: UI_BUTTON_CLICK
+
+close:
+  slot: 26
+  material: BARRIER
+  name: "&#FF0000&lClose"
+  lore:
+    - ""
+    - "&#FFD93DClick to close GUI"
+  sound: BLOCK_NOTE_BLOCK_BASS
+
+border:
+  enabled: true
+  material: YELLOW_STAINED_GLASS_PANE
+  name: " "
+  slots:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 12
+    - 14
+    - 16
+    - 17
+    - 19
+    - 20
+    - 21
+    - 23
+    - 24
+    - 25

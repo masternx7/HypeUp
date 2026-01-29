@@ -1,0 +1,75 @@
+# HEX Color: &#RRGGBB or <#RRGGBB>
+# Placeholder: {prefix}, {player}, {target}, {streak}, {level}, {days}, {count}
+prefix: "&#FF6B6B&l[&#FFD93D&lHypeUp&#FF6B6B&l]&r"
+
+general:
+  reload-success: "{prefix} &#00FF00Configuration reloaded successfully!"
+  no-permission: "{prefix} &#FF0000You don't have permission to use this command!"
+  player-not-found: "{prefix} &#FF0000Player {player} not found!"
+  database-error: "{prefix} &#FF0000Database error occurred!"
+  only-player: "{prefix} &#FF0000This command can only be used by players!"
+
+fire:
+  started: "{prefix} &#FFD93DYou started a fire streak with &#FF6B6B{target}&#FFD93D!"
+  partner-started: "{prefix} &#FF6B6B{player} &#FFD93Dstarted a fire streak with you!"
+  success: "{prefix} &#00FF00Successfully lit fire with &#FFD93D{target}&#00FF00!"
+  partner-success: "{prefix} &#00FF00You lit fire with &#FFD93D{player}&#00FF00!"
+  expired: "{prefix} &#FF0000Fire with {target} expired! You haven't lit it for {days} days"
+  partner-expired: "{prefix} &#FF0000Fire with {player} expired!"
+  restored: "{prefix} &#00FF00Successfully restored fire with {target}! ({count}/{max})"
+  partner-restored: "{prefix} &#00FF00{player} restored fire with you!"
+  restore-failed: "{prefix} &#FF0000Cannot restore fire! (Used all {max} restores or exceeded {days} days)"
+  ignited: |
+    &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
+    &#FFD93D&lFire lit with {target}!
+    &#00FF00Streak: &#FFD93D{streak} &#00FF00days
+    &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
+  partner-ignited: |
+    &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
+    &#FFD93D&lFire lit with {player}!
+    &#00FF00Streak: &#FFD93D{streak} &#00FF00days
+    &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
+  limit-reached: "{prefix} &#FF0000You already have {max} fire partners!"
+  info: |
+    &#FF6B6B&l━━━━ Your Fire ━━━━
+    &#FFD93DPartner: &#FF6B6B{target}
+    {fire-color}{fire-display} &#FFD93D({streak} days)
+    &#FFD93DRestore: &#00FF00{restore}/{max}
+    &#FF6B6B&l━━━━━━━━━━━━━━━━━━
+
+missions:
+  chat:
+    progress: "{prefix} &#FFD93DChat Progress: &#FF6B6B{current}/{required}"
+    completed: "{prefix} &#00FF00Chat mission completed!"
+    spam-detected: "{prefix} &#FF0000Please wait before sending another message!"
+  
+  shift:
+    progress: "{prefix} &#FFD93DShift Progress: &#FF6B6B{current}/{required}"
+    completed: "{prefix} &#00FF00Shift mission completed!"
+    too-far: "{prefix} &#FF0000You're too far away! Must be within {distance} blocks"
+  
+  gift:
+    sent: "{prefix} &#00FF00Sent items to {target}!"
+    received: "{prefix} &#FFD93DYou received items from {player}!"
+    completed: "{prefix} &#00FF00Gift mission completed!"
+    too-many-items: "{prefix} &#FF0000Too many items! Maximum 2304 items allowed."
+    inventory-full: "{prefix} &#FFD93DSome items were dropped because inventory is full."
+
+rewards:
+  received: |
+    &#FFD93D&l━━━━━ Reward ━━━━━
+    &#00FF00You maintained a {streak}-day streak!
+    &#FFD93DSpecial reward received!
+    &#FFD93D&l━━━━━━━━━━━━━━━━━━━
+
+commands:
+  help: |
+    &#FF6B6B&l━━━━ Commands ━━━━
+    &#FFD93D/hypeup &#FF6B6B- Open main GUI
+    &#FFD93D/hypeup send <player> &#FF6B6B- Send items
+    &#FFD93D/hypeup info [player] &#FF6B6B- View fire info
+    &#FFD93D/hypeup list &#FF6B6B- View fire partners
+    &#FFD93D/hypeup reload &#FF6B6B- Reload config
+    &#FF6B6B&l━━━━━━━━━━━━━━━━
+  
+  usage: "{prefix} &#FF0000Usage: {usage}"
