@@ -1,8 +1,8 @@
-package dev.mastern.plugins.database.dao;
+package dev.mastern.plugins.hypeup.database.dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import dev.mastern.plugins.HypeUp;
+import dev.mastern.plugins.hypeup.HypeUp;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;

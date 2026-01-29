@@ -1,7 +1,7 @@
-package dev.mastern.plugins.manager;
+package dev.mastern.plugins.hypeup.manager;
 
-import dev.mastern.plugins.HypeUp;
-import dev.mastern.plugins.utils.ColorUtils;
+import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.utils.ColorUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

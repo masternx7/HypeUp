@@ -1,4 +1,4 @@
-package dev.mastern.plugins.gui.components;
+package dev.mastern.plugins.hypeup.gui.components;
 
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;

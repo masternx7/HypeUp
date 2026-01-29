@@ -1,7 +1,7 @@
-package dev.mastern.plugins.listener;
+package dev.mastern.plugins.hypeup.listener;
 
-import dev.mastern.plugins.HypeUp;
-import dev.mastern.plugins.gui.GUIManager;
+import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.gui.GUIManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

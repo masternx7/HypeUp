@@ -1,6 +1,6 @@
-package dev.mastern.plugins.manager;
+package dev.mastern.plugins.hypeup.manager;
 
-import dev.mastern.plugins.HypeUp;
+import dev.mastern.plugins.hypeup.HypeUp;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -1,8 +1,8 @@
-package dev.mastern.plugins.manager.components;
+package dev.mastern.plugins.hypeup.manager.components;
 
-import dev.mastern.plugins.data.FireStreak;
-import dev.mastern.plugins.database.DatabaseManager;
-import dev.mastern.plugins.manager.MessageManager;
+import dev.mastern.plugins.hypeup.data.FireStreak;
+import dev.mastern.plugins.hypeup.database.DatabaseManager;
+import dev.mastern.plugins.hypeup.manager.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;

@@ -1,4 +1,4 @@
-package dev.mastern.plugins.data;
+package dev.mastern.plugins.hypeup.data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

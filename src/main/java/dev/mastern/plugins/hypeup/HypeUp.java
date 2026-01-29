@@ -1,15 +1,15 @@
-package dev.mastern.plugins;
+package dev.mastern.plugins.hypeup;
 
-import dev.mastern.plugins.command.HypeUpCommand;
-import dev.mastern.plugins.database.DatabaseManager;
-import dev.mastern.plugins.expansion.HypeUpPlaceholder;
-import dev.mastern.plugins.gui.GUIManager;
-import dev.mastern.plugins.listener.ChatListener;
-import dev.mastern.plugins.listener.GUIListener;
-import dev.mastern.plugins.listener.ShiftListener;
-import dev.mastern.plugins.manager.FireStreakManager;
-import dev.mastern.plugins.manager.MessageManager;
-import dev.mastern.plugins.manager.RewardManager;
+import dev.mastern.plugins.hypeup.command.HypeUpCommand;
+import dev.mastern.plugins.hypeup.database.DatabaseManager;
+import dev.mastern.plugins.hypeup.expansion.HypeUpPlaceholder;
+import dev.mastern.plugins.hypeup.gui.GUIManager;
+import dev.mastern.plugins.hypeup.listener.ChatListener;
+import dev.mastern.plugins.hypeup.listener.GUIListener;
+import dev.mastern.plugins.hypeup.listener.ShiftListener;
+import dev.mastern.plugins.hypeup.manager.FireStreakManager;
+import dev.mastern.plugins.hypeup.manager.MessageManager;
+import dev.mastern.plugins.hypeup.manager.RewardManager;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -87,7 +87,7 @@ public final class HypeUp extends JavaPlugin {
         
         if (fireStreakManager != null) {
             getLogger().info("Saving all fire streaks synchronously...");
-            List<dev.mastern.plugins.data.FireStreak> streakList = new ArrayList<>(fireStreakManager.getActiveStreaks().values());
+            List<dev.mastern.plugins.hypeup.data.FireStreak> streakList = new ArrayList<>(fireStreakManager.getActiveStreaks().values());
             if (!streakList.isEmpty()) {
                 databaseManager.saveFireStreaksBatch(streakList);
             }

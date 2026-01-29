@@ -1,8 +1,8 @@
-package dev.mastern.plugins.database;
+package dev.mastern.plugins.hypeup.database;
 
-import dev.mastern.plugins.HypeUp;
-import dev.mastern.plugins.data.FireStreak;
-import dev.mastern.plugins.database.dao.DatabaseConnection;
+import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.data.FireStreak;
+import dev.mastern.plugins.hypeup.database.dao.DatabaseConnection;
 import org.bukkit.Bukkit;
 
 import java.sql.*;

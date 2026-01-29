@@ -1,9 +1,9 @@
-package dev.mastern.plugins.expansion;
+package dev.mastern.plugins.hypeup.expansion;
 
-import dev.mastern.plugins.HypeUp;
-import dev.mastern.plugins.data.FireStreak;
-import dev.mastern.plugins.manager.FireStreakManager;
-import dev.mastern.plugins.manager.MessageManager;
+import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.data.FireStreak;
+import dev.mastern.plugins.hypeup.manager.FireStreakManager;
+import dev.mastern.plugins.hypeup.manager.MessageManager;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

@@ -1,6 +1,6 @@
-package dev.mastern.plugins.gui.components;
+package dev.mastern.plugins.hypeup.gui.components;
 
-import dev.mastern.plugins.utils.ColorUtils;
+import dev.mastern.plugins.hypeup.utils.ColorUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;

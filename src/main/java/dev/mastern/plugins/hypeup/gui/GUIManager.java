@@ -1,12 +1,12 @@
-package dev.mastern.plugins.gui;
+package dev.mastern.plugins.hypeup.gui;
 
-import dev.mastern.plugins.HypeUp;
-import dev.mastern.plugins.data.FireStreak;
-import dev.mastern.plugins.gui.components.ItemBuilder;
-import dev.mastern.plugins.gui.components.SoundPlayer;
-import dev.mastern.plugins.manager.FireStreakManager;
-import dev.mastern.plugins.manager.MessageManager;
-import dev.mastern.plugins.utils.ColorUtils;
+import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.data.FireStreak;
+import dev.mastern.plugins.hypeup.gui.components.ItemBuilder;
+import dev.mastern.plugins.hypeup.gui.components.SoundPlayer;
+import dev.mastern.plugins.hypeup.manager.FireStreakManager;
+import dev.mastern.plugins.hypeup.manager.MessageManager;
+import dev.mastern.plugins.hypeup.utils.ColorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;

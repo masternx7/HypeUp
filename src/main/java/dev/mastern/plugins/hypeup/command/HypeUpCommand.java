@@ -1,10 +1,10 @@
-package dev.mastern.plugins.command;
+package dev.mastern.plugins.hypeup.command;
 
-import dev.mastern.plugins.HypeUp;
-import dev.mastern.plugins.data.FireStreak;
-import dev.mastern.plugins.gui.GUIManager;
-import dev.mastern.plugins.manager.FireStreakManager;
-import dev.mastern.plugins.manager.MessageManager;
+import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.data.FireStreak;
+import dev.mastern.plugins.hypeup.gui.GUIManager;
+import dev.mastern.plugins.hypeup.manager.FireStreakManager;
+import dev.mastern.plugins.hypeup.manager.MessageManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

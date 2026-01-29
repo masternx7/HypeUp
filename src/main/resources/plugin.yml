@@ -1,6 +1,6 @@
 name: HypeUp
 version: '${project.version}'
-main: dev.mastern.plugins.HypeUp
+main: dev.mastern.plugins.hypeup.HypeUp
 api-version: '1.21'
 authors: [ MasterN ]
 website: https://github.com/masternx7

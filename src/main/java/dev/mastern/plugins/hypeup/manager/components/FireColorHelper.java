@@ -1,6 +1,6 @@
-package dev.mastern.plugins.manager.components;
+package dev.mastern.plugins.hypeup.manager.components;
 
-import dev.mastern.plugins.HypeUp;
+import dev.mastern.plugins.hypeup.HypeUp;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,10 +1,10 @@
-package dev.mastern.plugins.manager;
+package dev.mastern.plugins.hypeup.manager;
 
-import dev.mastern.plugins.HypeUp;
-import dev.mastern.plugins.data.FireStreak;
-import dev.mastern.plugins.database.DatabaseManager;
-import dev.mastern.plugins.manager.components.FireColorHelper;
-import dev.mastern.plugins.manager.components.FireExpirationHandler;
+import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.data.FireStreak;
+import dev.mastern.plugins.hypeup.database.DatabaseManager;
+import dev.mastern.plugins.hypeup.manager.components.FireColorHelper;
+import dev.mastern.plugins.hypeup.manager.components.FireExpirationHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

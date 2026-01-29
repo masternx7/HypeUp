@@ -1,9 +1,9 @@
-package dev.mastern.plugins.listener;
+package dev.mastern.plugins.hypeup.listener;
 
-import dev.mastern.plugins.HypeUp;
-import dev.mastern.plugins.data.FireStreak;
-import dev.mastern.plugins.manager.FireStreakManager;
-import dev.mastern.plugins.manager.MessageManager;
+import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.data.FireStreak;
+import dev.mastern.plugins.hypeup.manager.FireStreakManager;
+import dev.mastern.plugins.hypeup.manager.MessageManager;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
