@@ -25,7 +25,7 @@ public class FireColorHelper {
                 if (streak >= min && streak <= max) {
                     String path = "fire-colors.ranges." + rangeKey;
                     placeholders.put("fire-color", plugin.getConfig().getString(path + ".color", "&#FF0000"));
-                    placeholders.put("fire-display", plugin.getConfig().getString(path + ".display", "🔥 ไฟ"));
+                    placeholders.put("fire-display", plugin.getConfig().getString(path + ".display", ""));
                     placeholders.put("fire-description", plugin.getConfig().getString(path + ".description", ""));
                     return placeholders;
                 }
