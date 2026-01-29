@@ -59,8 +59,9 @@ public class GUIManager {
         String title = applyPlaceholders(config.getString("title", "HypeUp"), player, target, null);
         Inventory inv = Bukkit.createInventory(null, config.getInt("size", 54), ColorUtils.colorize(title));
         
-        addItem(inv, config, "partner-info", player, target, fireManager.getStreak(player.getUniqueId(), target.getUniqueId()));
-        addItem(inv, config, "confirm", player, target, null);
+        FireStreak streak = fireManager.getStreak(player.getUniqueId(), target.getUniqueId());
+        addItem(inv, config, "partner-info", player, target, streak);
+        addItemWithCount(inv, config, "confirm", player, target, streak, 0);
         addItem(inv, config, "cancel", player, target, null);
         addBorder(inv, config);
         
@@ -106,6 +107,28 @@ public class GUIManager {
         SoundPlayer.play(player, menuConfigs.get("general"));
     }
     
+    public void openInfoGUI(Player player, Player target) {
+        FileConfiguration config = menuConfigs.get("info");
+        if (config == null) return;
+        
+        FireStreak streak = fireManager.getStreak(player.getUniqueId(), target.getUniqueId());
+        String title = applyPlaceholders(config.getString("title", "HypeUp"), player, target, streak);
+        Inventory inv = Bukkit.createInventory(null, config.getInt("size", 27), ColorUtils.colorize(title));
+        
+        addItem(inv, config, "player-info", player, target, streak);
+        addItem(inv, config, "statistics", player, player, null);
+        addItem(inv, config, "restore-info", player, target, streak);
+        addItem(inv, config, "missions-info", player, target, streak);
+        addItem(inv, config, "send-gift", player, target, streak);
+        addItem(inv, config, "back", player, target, streak);
+        addItem(inv, config, "close", player, target, streak);
+        addBorder(inv, config);
+        
+        player.openInventory(inv);
+        openGUIs.put(player.getUniqueId(), "info");
+        giftTargets.put(player.getUniqueId(), target.getUniqueId());
+    }
+    
     public void confirmGift(Player player) {
         UUID targetUUID = giftTargets.get(player.getUniqueId());
         if (targetUUID == null) return;
@@ -114,6 +137,22 @@ public class GUIManager {
         if (target == null || !target.isOnline()) {
             messages.sendMessage(player, "general.player-not-found", MessageManager.placeholder("player", "Target"));
             return;
+        }
+        
+        double maxDistance = plugin.getConfig().getDouble("missions.item-gift.max-distance", 50);
+        if (maxDistance > 0) {
+            if (!player.getWorld().equals(target.getWorld())) {
+                messages.sendMessage(player, "missions.gift.too-far", Map.of("target", target.getName(), "distance", String.valueOf((int) maxDistance)));
+                returnGiftItems(player);
+                player.closeInventory();
+                return;
+            }
+            if (player.getLocation().distance(target.getLocation()) > maxDistance) {
+                messages.sendMessage(player, "missions.gift.too-far", Map.of("target", target.getName(), "distance", String.valueOf((int) maxDistance)));
+                returnGiftItems(player);
+                player.closeInventory();
+                return;
+            }
         }
         
         Inventory topInv = player.getOpenInventory().getTopInventory();
@@ -175,11 +214,40 @@ public class GUIManager {
         return items;
     }
     
+    private void returnGiftItems(Player player) {
+        Inventory topInv = player.getOpenInventory().getTopInventory();
+        List<ItemStack> items = collectGiftItems(topInv);
+        
+        for (int slot : menuConfigs.get("gift").getIntegerList("item-slots")) {
+            topInv.setItem(slot, null);
+        }
+        
+        for (ItemStack item : items) {
+            if (item == null || item.getType() == Material.AIR) continue;
+            HashMap<Integer, ItemStack> leftover = player.getInventory().addItem(item);
+            if (!leftover.isEmpty()) {
+                for (ItemStack overflow : leftover.values()) {
+                    player.getWorld().dropItemNaturally(player.getLocation(), overflow);
+                }
+            }
+        }
+    }
+    
     private void addItem(Inventory inv, FileConfiguration config, String key, Player player, Player target, FireStreak streak) {
         ConfigurationSection itemConfig = config.getConfigurationSection(key);
         if (itemConfig == null) return;
         
         Map<String, String> placeholders = createPlaceholders(player, target, streak);
+        ItemStack item = ItemBuilder.createSkull(itemConfig, target, placeholders);
+        inv.setItem(itemConfig.getInt("slot", 0), item);
+    }
+    
+    private void addItemWithCount(Inventory inv, FileConfiguration config, String key, Player player, Player target, FireStreak streak, int count) {
+        ConfigurationSection itemConfig = config.getConfigurationSection(key);
+        if (itemConfig == null) return;
+        
+        Map<String, String> placeholders = createPlaceholders(player, target, streak);
+        placeholders.put("count", String.valueOf(count));
         ItemStack item = ItemBuilder.createSkull(itemConfig, target, placeholders);
         inv.setItem(itemConfig.getInt("slot", 0), item);
     }
@@ -208,17 +276,40 @@ public class GUIManager {
         placeholders.put("player", player.getName());
         placeholders.put("target", target.getName() != null ? target.getName() : "Unknown");
         
+        // Statistics placeholders
+        List<FireStreak> playerStreaks = fireManager.getPlayerStreaks(player.getUniqueId());
+        placeholders.put("total-partners", String.valueOf(playerStreaks.size()));
+        placeholders.put("max-streak", String.valueOf(playerStreaks.stream().mapToInt(FireStreak::getMaxStreak).max().orElse(0)));
+        placeholders.put("total-fires", String.valueOf(playerStreaks.stream().mapToInt(FireStreak::getCurrentStreak).sum()));
+        
         if (streak != null) {
             placeholders.put("streak", String.valueOf(streak.getCurrentStreak()));
             placeholders.put("restore", String.valueOf(streak.getRestoreCount()));
             placeholders.put("max", String.valueOf(fireManager.getMaxRestoreCount()));
+            placeholders.put("restore-days", String.valueOf(plugin.getConfig().getInt("fire-streak.days-to-restore", 3)));
+            
+            // Mission status
+            boolean chatEnabled = plugin.getConfig().getBoolean("missions.chat.enabled", true);
+            boolean shiftEnabled = plugin.getConfig().getBoolean("missions.shift.enabled", true);
+            boolean giftEnabled = plugin.getConfig().getBoolean("missions.item-gift.enabled", true);
+            int minMessages = plugin.getConfig().getInt("missions.chat.min-messages", 2);
+            int requiredShifts = plugin.getConfig().getInt("missions.shift.required-interactions", 2);
+            
+            placeholders.put("chat-status", (chatEnabled && streak.getChatProgress() >= minMessages) ? "&#00FF00✓" : "&#FF0000✗");
+            placeholders.put("shift-status", (shiftEnabled && streak.getShiftProgress() >= requiredShifts) ? "&#00FF00✓" : "&#FF0000✗");
+            placeholders.put("gift-status", (giftEnabled && streak.isGiftCompleted()) ? "&#00FF00✓" : "&#FF0000✗");
+            
             placeholders.putAll(fireManager.getFireColorPlaceholders(streak.getCurrentStreak()));
         } else {
             placeholders.put("streak", "0");
             placeholders.put("restore", "0");
             placeholders.put("max", String.valueOf(fireManager.getMaxRestoreCount()));
+            placeholders.put("restore-days", String.valueOf(plugin.getConfig().getInt("fire-streak.days-to-restore", 3)));
+            placeholders.put("chat-status", "&#FF0000✗");
+            placeholders.put("shift-status", "&#FF0000✗");
+            placeholders.put("gift-status", "&#FF0000✗");
             placeholders.put("fire-color", "&#FFFFFF");
-            placeholders.put("fire-display", "ไม่มีไฟ");
+            placeholders.put("fire-display", "No Fire");
             placeholders.put("fire-description", "");
         }
         
@@ -265,4 +356,26 @@ public class GUIManager {
     public List<Integer> getItemSlots() { return menuConfigs.get("gift").getIntegerList("item-slots"); }
     public int getConfirmSlot() { return menuConfigs.get("gift").getInt("confirm.slot", 48); }
     public int getCancelSlot() { return menuConfigs.get("gift").getInt("cancel.slot", 50); }
+    public FileConfiguration getMenuConfig(String menuName) { return menuConfigs.get(menuName); }
+    public void playSoundFromConfig(Player player, ConfigurationSection soundConfig) {
+        SoundPlayer.play(player, soundConfig);
+    }
+    
+    public void updateGiftConfirmButton(Player player) {
+        Inventory inv = player.getOpenInventory().getTopInventory();
+        FileConfiguration config = menuConfigs.get("gift");
+        if (config == null) return;
+        
+        UUID targetUUID = giftTargets.get(player.getUniqueId());
+        if (targetUUID == null) return;
+        
+        Player target = Bukkit.getPlayer(targetUUID);
+        if (target == null) return;
+        
+        List<ItemStack> items = collectGiftItems(inv);
+        int count = items.stream().mapToInt(ItemStack::getAmount).sum();
+        
+        FireStreak streak = fireManager.getStreak(player.getUniqueId(), targetUUID);
+        addItemWithCount(inv, config, "confirm", player, target, streak, count);
+    }
 }

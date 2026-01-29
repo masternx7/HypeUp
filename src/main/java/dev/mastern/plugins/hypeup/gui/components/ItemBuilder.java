@@ -2,6 +2,7 @@ package dev.mastern.plugins.hypeup.gui.components;
 
 import dev.mastern.plugins.hypeup.utils.ColorUtils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -25,13 +26,14 @@ public class ItemBuilder {
         }
         
         String name = replacePlaceholders(config.getString("name", ""), placeholders);
-        meta.displayName(ColorUtils.colorize(name));
+        meta.displayName(ColorUtils.colorize(name).decoration(TextDecoration.ITALIC, false));
         
         if (config.contains("lore")) {
             List<String> lore = config.getStringList("lore");
             meta.lore(lore.stream()
                 .map(line -> replacePlaceholders(line, placeholders))
                 .map(ColorUtils::colorize)
+                .map(component -> component.decoration(TextDecoration.ITALIC, false))
                 .toList());
         }
         

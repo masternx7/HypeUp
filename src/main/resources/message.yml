@@ -30,18 +30,13 @@ fire:
     &#00FF00Streak: &#FFD93D{streak} &#00FF00days
     &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
   limit-reached: "{prefix} &#FF0000You already have {max} fire partners!"
-  info: |
-    &#FF6B6B&l━━━━ Your Fire ━━━━
-    &#FFD93DPartner: &#FF6B6B{target}
-    {fire-color}{fire-display} &#FFD93D({streak} days)
-    &#FFD93DRestore: &#00FF00{restore}/{max}
-    &#FF6B6B&l━━━━━━━━━━━━━━━━━━
 
 missions:
   chat:
     progress: "{prefix} &#FFD93DChat Progress: &#FF6B6B{current}/{required}"
     completed: "{prefix} &#00FF00Chat mission completed!"
     spam-detected: "{prefix} &#FF0000Please wait before sending another message!"
+    too-far: "{prefix} &#FF0000{target} is too far away! Must be within distance"
   
   shift:
     progress: "{prefix} &#FFD93DShift Progress: &#FF6B6B{current}/{required}"
@@ -54,6 +49,7 @@ missions:
     completed: "{prefix} &#00FF00Gift mission completed!"
     too-many-items: "{prefix} &#FF0000Too many items! Maximum 2304 items allowed."
     inventory-full: "{prefix} &#FFD93DSome items were dropped because inventory is full."
+    too-far: "{prefix} &#FF0000{target} is too far away! Must be within {distance} blocks"
 
 rewards:
   received: |

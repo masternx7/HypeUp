@@ -46,16 +46,21 @@ missions:
     min-messages: 2
     min-delay-seconds: 5
     max-delay-seconds: 10
+    # Maximum distance between players (in blocks, -1 to disable)
+    max-distance: 50
 
   # Shift Interaction
   shift:
     enabled: true
     required-interactions: 2
+    # Maximum distance between players (in blocks, -1 to disable)
     max-distance: 3
   
   # Item Gift
   item-gift:
     enabled: true
+    # Maximum distance between players (in blocks, -1 to disable)
+    max-distance: 50
 
 fire-colors:
   ranges:

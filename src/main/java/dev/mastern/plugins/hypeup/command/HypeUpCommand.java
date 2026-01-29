@@ -96,18 +96,25 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                     return true;
                 }
                 
-                Player target = player;
-                if (args.length >= 2) {
-                    target = Bukkit.getPlayer(args[1]);
-                    if (target == null || !target.isOnline()) {
-                        Map<String, String> placeholders = new HashMap<>();
-                        placeholders.put("player", args[1]);
-                        messages.sendMessage(player, "general.player-not-found", placeholders);
-                        return true;
-                    }
+                if (args.length < 2) {
+                    guiManager.openListGUI(player);
+                    return true;
                 }
                 
-                showInfo(player, target);
+                Player target = Bukkit.getPlayer(args[1]);
+                if (target == null || !target.isOnline()) {
+                    Map<String, String> placeholders = new HashMap<>();
+                    placeholders.put("player", args[1]);
+                    messages.sendMessage(player, "general.player-not-found", placeholders);
+                    return true;
+                }
+                
+                if (target.equals(player)) {
+                    guiManager.openListGUI(player);
+                    return true;
+                }
+                
+                guiManager.openInfoGUI(player, target);
                 return true;
             }
             
@@ -148,32 +155,6 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                 }
                 return true;
             }
-        }
-    }
-    
-    private void showInfo(Player viewer, Player target) {
-        List<FireStreak> streaks = fireManager.getPlayerStreaks(target.getUniqueId());
-        
-        if (streaks.isEmpty()) {
-            messages.sendMessage(viewer, "fire.info", MessageManager.placeholder("target", target.getName()));
-            return;
-        }
-        
-        for (FireStreak streak : streaks) {
-            UUID partnerUUID = streak.getPartner(target.getUniqueId());
-            Player partner = Bukkit.getPlayer(partnerUUID);
-            
-            if (partner == null) continue;
-            
-            Map<String, String> placeholders = new HashMap<>();
-            placeholders.put("target", partner.getName());
-            placeholders.put("streak", String.valueOf(streak.getCurrentStreak()));
-            placeholders.put("restore", String.valueOf(streak.getRestoreCount()));
-            placeholders.put("max", String.valueOf(fireManager.getMaxRestoreCount()));
-            
-            placeholders.putAll(fireManager.getFireColorPlaceholders(streak.getCurrentStreak()));
-            
-            messages.sendMultilineMessage(viewer, "fire.info", placeholders);
         }
     }
     

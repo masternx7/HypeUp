@@ -26,6 +26,7 @@ public class ChatListener implements Listener {
     private int minMessages;
     private int minDelaySeconds;
     private int maxDelaySeconds;
+    private double maxDistance;
     
     private final Map<UUID, LocalDateTime> lastMessageTime = new HashMap<>();
     private final Map<UUID, UUID> lastMessageTarget = new HashMap<>();
@@ -42,6 +43,7 @@ public class ChatListener implements Listener {
         minMessages = plugin.getConfig().getInt("missions.chat.min-messages", 2);
         minDelaySeconds = plugin.getConfig().getInt("missions.chat.min-delay-seconds", 5);
         maxDelaySeconds = plugin.getConfig().getInt("missions.chat.max-delay-seconds", 10);
+        maxDistance = plugin.getConfig().getDouble("missions.chat.max-distance", 50);
     }
     
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -55,6 +57,15 @@ public class ChatListener implements Listener {
         
         for (Player target : mentionedPlayers) {
             if (target.equals(sender)) continue;
+            
+            if (maxDistance > 0 && !sender.getWorld().equals(target.getWorld())) {
+                messages.sendMessage(sender, "missions.chat.too-far", Map.of("target", target.getName()));
+                continue;
+            }
+            if (maxDistance > 0 && sender.getLocation().distance(target.getLocation()) > maxDistance) {
+                messages.sendMessage(sender, "missions.chat.too-far", Map.of("target", target.getName()));
+                continue;
+            }
             
             if (isSpamming(sender, target)) {
                 Map<String, String> placeholders = new HashMap<>();
