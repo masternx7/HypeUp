@@ -49,13 +49,18 @@ public class ShiftListener implements Listener {
         List<Player> nearbyPlayers = findNearbyPlayers(player);
         
         for (Player target : nearbyPlayers) {
+            // Check same IP
+            if (fireManager.hasSameIp(player, target)) {
+                continue;
+            }
+            
             FireStreak streak = fireManager.getOrCreateStreak(player.getUniqueId(), target.getUniqueId());
-            if (streak.getShiftProgress() >= requiredInteractions) {
+            if (streak.getShiftProgress(player.getUniqueId()) >= requiredInteractions) {
                 continue;
             }
             
             String interactionKey = getInteractionKey(player.getUniqueId(), target.getUniqueId());
-            streak.setShiftProgress(streak.getShiftProgress() + 1);
+            streak.setShiftProgress(player.getUniqueId(), streak.getShiftProgress(player.getUniqueId()) + 1);
             recentInteractions.put(interactionKey, LocalDateTime.now());
             
             Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
@@ -63,13 +68,13 @@ public class ShiftListener implements Listener {
             });
             
             Map<String, String> placeholders = new HashMap<>();
-            placeholders.put("current", String.valueOf(streak.getShiftProgress()));
+            placeholders.put("current", String.valueOf(streak.getShiftProgress(player.getUniqueId())));
             placeholders.put("required", String.valueOf(requiredInteractions));
             placeholders.put("target", target.getName());
             
             messages.sendMessage(player, "missions.shift.progress", placeholders);
             
-            if (streak.getShiftProgress() >= requiredInteractions) {
+            if (streak.getShiftProgress(player.getUniqueId()) >= requiredInteractions) {
                 messages.sendMessage(player, "missions.shift.completed", null);
                 
                 checkMissionCompletion(streak, player, target);
@@ -106,7 +111,7 @@ public class ShiftListener implements Listener {
             java.time.LocalDate lastFireDate = streak.getLastFire().atZone(timeZone).toLocalDate();
             java.time.LocalDate today = java.time.LocalDate.now(timeZone);
             
-            if (today.isAfter(lastFireDate) && (streak.getChatProgress() > 0 || streak.getShiftProgress() > 0 || streak.isGiftCompleted())) {
+            if (today.isAfter(lastFireDate) && (streak.getChatProgress(player1.getUniqueId()) > 0 || streak.getShiftProgress(player1.getUniqueId()) > 0 || streak.isGiftCompleted(player1.getUniqueId()) || streak.getChatProgress(player2.getUniqueId()) > 0 || streak.getShiftProgress(player2.getUniqueId()) > 0 || streak.isGiftCompleted(player2.getUniqueId()))) {
                 streak.resetDailyProgress();
                 Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                     plugin.getDatabaseManager().saveFireStreak(streak);

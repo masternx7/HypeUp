@@ -13,10 +13,16 @@ public class FireStreak {
     private LocalDateTime lastFire;
     private int restoreCount;
     private boolean expired;
-    private int chatProgress;
-    private int shiftProgress;
-    private boolean giftCompleted;
-    private LocalDateTime lastChatTime;
+    
+    private int chatProgress1;
+    private int shiftProgress1;
+    private boolean giftCompleted1;
+    private LocalDateTime lastChatTime1;
+    
+    private int chatProgress2;
+    private int shiftProgress2;
+    private boolean giftCompleted2;
+    private LocalDateTime lastChatTime2;
     
     public FireStreak(UUID player1, UUID player2) {
         this.player1 = player1;
@@ -27,10 +33,14 @@ public class FireStreak {
         this.lastFire = null;
         this.restoreCount = 0;
         this.expired = false;
-        this.chatProgress = 0;
-        this.shiftProgress = 0;
-        this.giftCompleted = false;
-        this.lastChatTime = null;
+        this.chatProgress1 = 0;
+        this.shiftProgress1 = 0;
+        this.giftCompleted1 = false;
+        this.lastChatTime1 = null;
+        this.chatProgress2 = 0;
+        this.shiftProgress2 = 0;
+        this.giftCompleted2 = false;
+        this.lastChatTime2 = null;
     }
     
     public UUID getPlayer1() {
@@ -92,36 +102,52 @@ public class FireStreak {
         this.expired = expired;
     }
     
-    public int getChatProgress() {
-        return chatProgress;
+    public int getChatProgress(UUID player) {
+        return player.equals(player1) ? chatProgress1 : chatProgress2;
     }
     
-    public void setChatProgress(int chatProgress) {
-        this.chatProgress = chatProgress;
+    public void setChatProgress(UUID player, int progress) {
+        if (player.equals(player1)) {
+            this.chatProgress1 = progress;
+        } else {
+            this.chatProgress2 = progress;
+        }
     }
     
-    public int getShiftProgress() {
-        return shiftProgress;
+    public int getShiftProgress(UUID player) {
+        return player.equals(player1) ? shiftProgress1 : shiftProgress2;
     }
     
-    public void setShiftProgress(int shiftProgress) {
-        this.shiftProgress = shiftProgress;
+    public void setShiftProgress(UUID player, int progress) {
+        if (player.equals(player1)) {
+            this.shiftProgress1 = progress;
+        } else {
+            this.shiftProgress2 = progress;
+        }
     }
     
-    public boolean isGiftCompleted() {
-        return giftCompleted;
+    public boolean isGiftCompleted(UUID player) {
+        return player.equals(player1) ? giftCompleted1 : giftCompleted2;
     }
     
-    public void setGiftCompleted(boolean giftCompleted) {
-        this.giftCompleted = giftCompleted;
+    public void setGiftCompleted(UUID player, boolean completed) {
+        if (player.equals(player1)) {
+            this.giftCompleted1 = completed;
+        } else {
+            this.giftCompleted2 = completed;
+        }
     }
     
-    public LocalDateTime getLastChatTime() {
-        return lastChatTime;
+    public LocalDateTime getLastChatTime(UUID player) {
+        return player.equals(player1) ? lastChatTime1 : lastChatTime2;
     }
     
-    public void setLastChatTime(LocalDateTime lastChatTime) {
-        this.lastChatTime = lastChatTime;
+    public void setLastChatTime(UUID player, LocalDateTime time) {
+        if (player.equals(player1)) {
+            this.lastChatTime1 = time;
+        } else {
+            this.lastChatTime2 = time;
+        }
     }
     
     public boolean involves(UUID player) {
@@ -138,19 +164,47 @@ public class FireStreak {
     }
     
     public void resetDailyProgress() {
-        this.chatProgress = 0;
-        this.shiftProgress = 0;
-        this.giftCompleted = false;
-        this.lastChatTime = null;
+        this.chatProgress1 = 0;
+        this.shiftProgress1 = 0;
+        this.giftCompleted1 = false;
+        this.lastChatTime1 = null;
+        this.chatProgress2 = 0;
+        this.shiftProgress2 = 0;
+        this.giftCompleted2 = false;
+        this.lastChatTime2 = null;
     }
     
     public boolean areMissionsCompleted(boolean chatEnabled, int minMessages,
                                        boolean shiftEnabled, int requiredShifts,
                                        boolean giftEnabled) {
-        boolean chatDone = !chatEnabled || chatProgress >= minMessages;
-        boolean shiftDone = !shiftEnabled || shiftProgress >= requiredShifts;
-        boolean giftDone = !giftEnabled || giftCompleted;
+        boolean chat1Done = !chatEnabled || chatProgress1 >= minMessages;
+        boolean shift1Done = !shiftEnabled || shiftProgress1 >= requiredShifts;
+        boolean gift1Done = !giftEnabled || giftCompleted1;
         
-        return chatDone && shiftDone && giftDone;
+        boolean chat2Done = !chatEnabled || chatProgress2 >= minMessages;
+        boolean shift2Done = !shiftEnabled || shiftProgress2 >= requiredShifts;
+        boolean gift2Done = !giftEnabled || giftCompleted2;
+        
+        return (chat1Done && shift1Done && gift1Done) && (chat2Done && shift2Done && gift2Done);
     }
+    
+    public int getChatProgress1() { return chatProgress1; }
+    public int getShiftProgress1() { return shiftProgress1; }
+    public boolean isGiftCompleted1() { return giftCompleted1; }
+    public LocalDateTime getLastChatTime1() { return lastChatTime1; }
+    
+    public int getChatProgress2() { return chatProgress2; }
+    public int getShiftProgress2() { return shiftProgress2; }
+    public boolean isGiftCompleted2() { return giftCompleted2; }
+    public LocalDateTime getLastChatTime2() { return lastChatTime2; }
+    
+    public void setChatProgress1(int progress) { this.chatProgress1 = progress; }
+    public void setShiftProgress1(int progress) { this.shiftProgress1 = progress; }
+    public void setGiftCompleted1(boolean completed) { this.giftCompleted1 = completed; }
+    public void setLastChatTime1(LocalDateTime time) { this.lastChatTime1 = time; }
+    
+    public void setChatProgress2(int progress) { this.chatProgress2 = progress; }
+    public void setShiftProgress2(int progress) { this.shiftProgress2 = progress; }
+    public void setGiftCompleted2(boolean completed) { this.giftCompleted2 = completed; }
+    public void setLastChatTime2(LocalDateTime time) { this.lastChatTime2 = time; }
 }

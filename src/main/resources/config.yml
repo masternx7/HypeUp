@@ -38,6 +38,7 @@ fire-streak:
   limit-partners: false
   # Maximum number of partners (used when limit-partners is true)
   max-partners: 5
+  anti-same-ip: true
 
 missions:
   # Chat Interaction

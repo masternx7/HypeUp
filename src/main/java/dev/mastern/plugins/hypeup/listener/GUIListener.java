@@ -38,7 +38,6 @@ public class GUIListener implements Listener {
         if (clickedInv.equals(event.getView().getTopInventory())) {
             handleGUIClick(player, guiType, event.getSlot());
             
-            // Update confirm button with item count for gift GUI
             if (guiType.equals("gift")) {
                 guiManager.updateGiftConfirmButton(player);
             }
@@ -80,7 +79,6 @@ public class GUIListener implements Listener {
             return;
         }
         
-        // Handle partner item clicks
         List<FireStreak> streaks = plugin.getFireStreakManager().getPlayerStreaks(player.getUniqueId());
         if (slot >= 0 && slot < streaks.size()) {
             FireStreak streak = streaks.get(slot);

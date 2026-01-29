@@ -75,28 +75,28 @@ public class ChatListener implements Listener {
             
             FireStreak streak = fireManager.getOrCreateStreak(sender.getUniqueId(), target.getUniqueId());
             
-            if (streak.getChatProgress() >= minMessages) {
+            if (streak.getChatProgress(sender.getUniqueId()) >= minMessages) {
                 continue;
             }
             
             lastMessageTime.put(sender.getUniqueId(), LocalDateTime.now());
             lastMessageTarget.put(sender.getUniqueId(), target.getUniqueId());
             
-            streak.setChatProgress(streak.getChatProgress() + 1);
-            streak.setLastChatTime(LocalDateTime.now());
+            streak.setChatProgress(sender.getUniqueId(), streak.getChatProgress(sender.getUniqueId()) + 1);
+            streak.setLastChatTime(sender.getUniqueId(), LocalDateTime.now());
             
             Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                 plugin.getDatabaseManager().saveFireStreak(streak);
             });
             
             Map<String, String> placeholders = new HashMap<>();
-            placeholders.put("current", String.valueOf(streak.getChatProgress()));
+            placeholders.put("current", String.valueOf(streak.getChatProgress(sender.getUniqueId())));
             placeholders.put("required", String.valueOf(minMessages));
             placeholders.put("target", target.getName());
             
             messages.sendMessage(sender, "missions.chat.progress", placeholders);
             
-            if (streak.getChatProgress() >= minMessages) {
+            if (streak.getChatProgress(sender.getUniqueId()) >= minMessages) {
                 messages.sendMessage(sender, "missions.chat.completed", null);
                 
                 checkMissionCompletion(streak, sender, target);
@@ -144,7 +144,7 @@ public class ChatListener implements Listener {
             java.time.LocalDate lastFireDate = streak.getLastFire().atZone(timeZone).toLocalDate();
             java.time.LocalDate today = java.time.LocalDate.now(timeZone);
             
-            if (today.isAfter(lastFireDate) && (streak.getChatProgress() > 0 || streak.getShiftProgress() > 0 || streak.isGiftCompleted())) {
+            if (today.isAfter(lastFireDate) && (streak.getChatProgress(player1.getUniqueId()) > 0 || streak.getShiftProgress(player1.getUniqueId()) > 0 || streak.isGiftCompleted(player1.getUniqueId()) || streak.getChatProgress(player2.getUniqueId()) > 0 || streak.getShiftProgress(player2.getUniqueId()) > 0 || streak.isGiftCompleted(player2.getUniqueId()))) {
                 streak.resetDailyProgress();
                 Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                     plugin.getDatabaseManager().saveFireStreak(streak);

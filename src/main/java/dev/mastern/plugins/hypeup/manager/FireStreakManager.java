@@ -31,6 +31,7 @@ public class FireStreakManager {
     private int maxRestoreCount;
     private boolean limitPartners;
     private int maxPartners;
+    private boolean antiSameIp;
     
     public FireStreakManager(HypeUp plugin, DatabaseManager database, MessageManager messages) {
         this.plugin = plugin;
@@ -56,6 +57,7 @@ public class FireStreakManager {
         maxRestoreCount = plugin.getConfig().getInt("fire-streak.max-restore-count", 3);
         limitPartners = plugin.getConfig().getBoolean("fire-streak.limit-partners", false);
         maxPartners = plugin.getConfig().getInt("fire-streak.max-partners", 5);
+        antiSameIp = plugin.getConfig().getBoolean("fire-streak.anti-same-ip", true);
         
         this.expirationHandler = new FireExpirationHandler(database, messages, daysBeforeExpire, timeZone);
     }
@@ -148,6 +150,21 @@ public class FireStreakManager {
     
     public Map<String, String> getFireColorPlaceholders(FireStreak streak) {
         return colorHelper.getPlaceholders(streak.getCurrentStreak());
+    }
+    
+    public boolean hasSameIp(Player player1, Player player2) {
+        if (!antiSameIp) {
+            return false;
+        }
+        
+        String ip1 = player1.getAddress() != null ? player1.getAddress().getAddress().getHostAddress() : null;
+        String ip2 = player2.getAddress() != null ? player2.getAddress().getAddress().getHostAddress() : null;
+        
+        if (ip1 == null || ip2 == null) {
+            return false;
+        }
+        
+        return ip1.equals(ip2);
     }
     
     public boolean isExpired(FireStreak streak) {

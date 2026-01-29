@@ -19,6 +19,7 @@ fire:
   restored: "{prefix} &#00FF00Successfully restored fire with {target}! ({count}/{max})"
   partner-restored: "{prefix} &#00FF00{player} restored fire with you!"
   restore-failed: "{prefix} &#FF0000Cannot restore fire! (Used all {max} restores or exceeded {days} days)"
+  same-ip-blocked: "{prefix} &#FF0000Cannot create fire streak with players on the same IP address!"
   ignited: |
     &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
     &#FFD93D&lFire lit with {target}!
@@ -32,11 +33,16 @@ fire:
   limit-reached: "{prefix} &#FF0000You already have {max} fire partners!"
 
 missions:
+  status:
+    completed: "&#00FF00Completed"
+    incomplete: "&#FF0000Incomplete"
+  
   chat:
     progress: "{prefix} &#FFD93DChat Progress: &#FF6B6B{current}/{required}"
     completed: "{prefix} &#00FF00Chat mission completed!"
     spam-detected: "{prefix} &#FF0000Please wait before sending another message!"
     too-far: "{prefix} &#FF0000{target} is too far away! Must be within distance"
+    message-received: "{prefix} &#FFD93D{player}: &#FF6B6B{message}"
   
   shift:
     progress: "{prefix} &#FFD93DShift Progress: &#FF6B6B{current}/{required}"
@@ -58,11 +64,18 @@ rewards:
     &#FFD93DSpecial reward received!
     &#FFD93D&l━━━━━━━━━━━━━━━━━━━
 
+last-fire-time:
+  days: "{days} days ago"
+  hours: "{hours} hours ago"
+  today: "Today"
+  never: "Never"
+
 commands:
   help: |
     &#FF6B6B&l━━━━ Commands ━━━━
     &#FFD93D/hypeup &#FF6B6B- Open main GUI
     &#FFD93D/hypeup send <player> &#FF6B6B- Send items
+    &#FFD93D/hypeup msg <player> <message> &#FF6B6B- Send message for chat mission
     &#FFD93D/hypeup info [player] &#FF6B6B- View fire info
     &#FFD93D/hypeup list &#FF6B6B- View fire partners
     &#FFD93D/hypeup reload &#FF6B6B- Reload config

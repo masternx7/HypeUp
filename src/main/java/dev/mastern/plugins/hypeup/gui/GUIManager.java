@@ -53,6 +53,11 @@ public class GUIManager {
     }
     
     public void openGiftGUI(Player player, Player target) {
+        if (fireManager.hasSameIp(player, target)) {
+            messages.sendMessage(player, "fire.same-ip-blocked", null);
+            return;
+        }
+        
         FileConfiguration config = menuConfigs.get("gift");
         if (config == null) return;
         
@@ -108,6 +113,11 @@ public class GUIManager {
     }
     
     public void openInfoGUI(Player player, Player target) {
+        if (fireManager.hasSameIp(player, target)) {
+            messages.sendMessage(player, "fire.same-ip-blocked", null);
+            return;
+        }
+        
         FileConfiguration config = menuConfigs.get("info");
         if (config == null) return;
         
@@ -187,7 +197,7 @@ public class GUIManager {
         }
         
         FireStreak streak = fireManager.getOrCreateStreak(player.getUniqueId(), targetUUID);
-        streak.setGiftCompleted(true);
+        streak.setGiftCompleted(player.getUniqueId(), true);
         
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             plugin.getDatabaseManager().saveFireStreak(streak);
@@ -276,7 +286,6 @@ public class GUIManager {
         placeholders.put("player", player.getName());
         placeholders.put("target", target.getName() != null ? target.getName() : "Unknown");
         
-        // Statistics placeholders
         List<FireStreak> playerStreaks = fireManager.getPlayerStreaks(player.getUniqueId());
         placeholders.put("total-partners", String.valueOf(playerStreaks.size()));
         placeholders.put("max-streak", String.valueOf(playerStreaks.stream().mapToInt(FireStreak::getMaxStreak).max().orElse(0)));
@@ -288,16 +297,37 @@ public class GUIManager {
             placeholders.put("max", String.valueOf(fireManager.getMaxRestoreCount()));
             placeholders.put("restore-days", String.valueOf(plugin.getConfig().getInt("fire-streak.days-to-restore", 3)));
             
-            // Mission status
+            if (streak.getLastFire() != null) {
+                java.time.LocalDateTime lastFire = streak.getLastFire();
+                java.time.Duration duration = java.time.Duration.between(lastFire, java.time.LocalDateTime.now());
+                long hours = duration.toHours();
+                long days = duration.toDays();
+                
+                if (days > 0) {
+                    String format = messages.getMessage("last-fire-time.days", null);
+                    placeholders.put("last", format.replace("{days}", String.valueOf(days)));
+                } else if (hours > 0) {
+                    String format = messages.getMessage("last-fire-time.hours", null);
+                    placeholders.put("last", format.replace("{hours}", String.valueOf(hours)));
+                } else {
+                    placeholders.put("last", messages.getMessage("last-fire-time.today", null));
+                }
+            } else {
+                placeholders.put("last", messages.getMessage("last-fire-time.never", null));
+            }
+            
             boolean chatEnabled = plugin.getConfig().getBoolean("missions.chat.enabled", true);
             boolean shiftEnabled = plugin.getConfig().getBoolean("missions.shift.enabled", true);
             boolean giftEnabled = plugin.getConfig().getBoolean("missions.item-gift.enabled", true);
             int minMessages = plugin.getConfig().getInt("missions.chat.min-messages", 2);
             int requiredShifts = plugin.getConfig().getInt("missions.shift.required-interactions", 2);
             
-            placeholders.put("chat-status", (chatEnabled && streak.getChatProgress() >= minMessages) ? "&#00FF00✓" : "&#FF0000✗");
-            placeholders.put("shift-status", (shiftEnabled && streak.getShiftProgress() >= requiredShifts) ? "&#00FF00✓" : "&#FF0000✗");
-            placeholders.put("gift-status", (giftEnabled && streak.isGiftCompleted()) ? "&#00FF00✓" : "&#FF0000✗");
+            String completedStatus = messages.getMessage("missions.status.completed", null);
+            String incompleteStatus = messages.getMessage("missions.status.incomplete", null);
+            
+            placeholders.put("chat-status", (chatEnabled && streak.getChatProgress(player.getUniqueId()) >= minMessages) ? completedStatus : incompleteStatus);
+            placeholders.put("shift-status", (shiftEnabled && streak.getShiftProgress(player.getUniqueId()) >= requiredShifts) ? completedStatus : incompleteStatus);
+            placeholders.put("gift-status", (giftEnabled && streak.isGiftCompleted(player.getUniqueId())) ? completedStatus : incompleteStatus);
             
             placeholders.putAll(fireManager.getFireColorPlaceholders(streak.getCurrentStreak()));
         } else {
@@ -305,9 +335,12 @@ public class GUIManager {
             placeholders.put("restore", "0");
             placeholders.put("max", String.valueOf(fireManager.getMaxRestoreCount()));
             placeholders.put("restore-days", String.valueOf(plugin.getConfig().getInt("fire-streak.days-to-restore", 3)));
-            placeholders.put("chat-status", "&#FF0000✗");
-            placeholders.put("shift-status", "&#FF0000✗");
-            placeholders.put("gift-status", "&#FF0000✗");
+            placeholders.put("last", messages.getMessage("last-fire-time.never", null));
+            
+            String incompleteStatus = messages.getMessage("missions.status.incomplete", null);
+            placeholders.put("chat-status", incompleteStatus);
+            placeholders.put("shift-status", incompleteStatus);
+            placeholders.put("gift-status", incompleteStatus);
             placeholders.put("fire-color", "&#FFFFFF");
             placeholders.put("fire-display", "No Fire");
             placeholders.put("fire-description", "");
@@ -331,7 +364,7 @@ public class GUIManager {
             java.time.LocalDate lastFireDate = streak.getLastFire().atZone(timeZone).toLocalDate();
             java.time.LocalDate today = java.time.LocalDate.now(timeZone);
             
-            if (today.isAfter(lastFireDate) && (streak.getChatProgress() > 0 || streak.getShiftProgress() > 0 || streak.isGiftCompleted())) {
+            if (today.isAfter(lastFireDate) && (streak.getChatProgress(player1.getUniqueId()) > 0 || streak.getShiftProgress(player1.getUniqueId()) > 0 || streak.isGiftCompleted(player1.getUniqueId()) || streak.getChatProgress(player2.getUniqueId()) > 0 || streak.getShiftProgress(player2.getUniqueId()) > 0 || streak.isGiftCompleted(player2.getUniqueId()))) {
                 streak.resetDailyProgress();
                 Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                     plugin.getDatabaseManager().saveFireStreak(streak);

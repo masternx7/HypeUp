@@ -36,10 +36,14 @@ public class DatabaseManager {
                 last_fire TIMESTAMP,
                 restore_count INT DEFAULT 0,
                 expired BOOLEAN DEFAULT FALSE,
-                chat_progress INT DEFAULT 0,
-                shift_progress INT DEFAULT 0,
-                gift_completed BOOLEAN DEFAULT FALSE,
-                last_chat_time TIMESTAMP,
+                chat_progress1 INT DEFAULT 0,
+                shift_progress1 INT DEFAULT 0,
+                gift_completed1 BOOLEAN DEFAULT FALSE,
+                last_chat_time1 TIMESTAMP,
+                chat_progress2 INT DEFAULT 0,
+                shift_progress2 INT DEFAULT 0,
+                gift_completed2 BOOLEAN DEFAULT FALSE,
+                last_chat_time2 TIMESTAMP,
                 UNIQUE KEY unique_pair (player1, player2),
                 INDEX idx_player1 (player1),
                 INDEX idx_player2 (player2)
@@ -69,8 +73,10 @@ public class DatabaseManager {
         String sql = """
             INSERT INTO fire_streaks 
             (player1, player2, current_streak, max_streak, last_interaction, 
-             last_fire, restore_count, expired, chat_progress, shift_progress, gift_completed, last_chat_time)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+             last_fire, restore_count, expired, 
+             chat_progress1, shift_progress1, gift_completed1, last_chat_time1,
+             chat_progress2, shift_progress2, gift_completed2, last_chat_time2)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE
             current_streak = VALUES(current_streak),
             max_streak = VALUES(max_streak),
@@ -78,10 +84,14 @@ public class DatabaseManager {
             last_fire = VALUES(last_fire),
             restore_count = VALUES(restore_count),
             expired = VALUES(expired),
-            chat_progress = VALUES(chat_progress),
-            shift_progress = VALUES(shift_progress),
-            gift_completed = VALUES(gift_completed),
-            last_chat_time = VALUES(last_chat_time)
+            chat_progress1 = VALUES(chat_progress1),
+            shift_progress1 = VALUES(shift_progress1),
+            gift_completed1 = VALUES(gift_completed1),
+            last_chat_time1 = VALUES(last_chat_time1),
+            chat_progress2 = VALUES(chat_progress2),
+            shift_progress2 = VALUES(shift_progress2),
+            gift_completed2 = VALUES(gift_completed2),
+            last_chat_time2 = VALUES(last_chat_time2)
         """;
         
         try (Connection conn = connection.getConnection();
@@ -95,10 +105,14 @@ public class DatabaseManager {
             stmt.setTimestamp(6, streak.getLastFire() != null ? Timestamp.valueOf(streak.getLastFire()) : null);
             stmt.setInt(7, streak.getRestoreCount());
             stmt.setBoolean(8, streak.isExpired());
-            stmt.setInt(9, streak.getChatProgress());
-            stmt.setInt(10, streak.getShiftProgress());
-            stmt.setBoolean(11, streak.isGiftCompleted());
-            stmt.setTimestamp(12, streak.getLastChatTime() != null ? Timestamp.valueOf(streak.getLastChatTime()) : null);
+            stmt.setInt(9, streak.getChatProgress1());
+            stmt.setInt(10, streak.getShiftProgress1());
+            stmt.setBoolean(11, streak.isGiftCompleted1());
+            stmt.setTimestamp(12, streak.getLastChatTime1() != null ? Timestamp.valueOf(streak.getLastChatTime1()) : null);
+            stmt.setInt(13, streak.getChatProgress2());
+            stmt.setInt(14, streak.getShiftProgress2());
+            stmt.setBoolean(15, streak.isGiftCompleted2());
+            stmt.setTimestamp(16, streak.getLastChatTime2() != null ? Timestamp.valueOf(streak.getLastChatTime2()) : null);
             
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -116,8 +130,10 @@ public class DatabaseManager {
         String sql = """
             INSERT INTO fire_streaks 
             (player1, player2, current_streak, max_streak, last_interaction, 
-             last_fire, restore_count, expired, chat_progress, shift_progress, gift_completed, last_chat_time)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+             last_fire, restore_count, expired, 
+             chat_progress1, shift_progress1, gift_completed1, last_chat_time1,
+             chat_progress2, shift_progress2, gift_completed2, last_chat_time2)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE
             current_streak = VALUES(current_streak),
             max_streak = VALUES(max_streak),
@@ -125,10 +141,14 @@ public class DatabaseManager {
             last_fire = VALUES(last_fire),
             restore_count = VALUES(restore_count),
             expired = VALUES(expired),
-            chat_progress = VALUES(chat_progress),
-            shift_progress = VALUES(shift_progress),
-            gift_completed = VALUES(gift_completed),
-            last_chat_time = VALUES(last_chat_time)
+            chat_progress1 = VALUES(chat_progress1),
+            shift_progress1 = VALUES(shift_progress1),
+            gift_completed1 = VALUES(gift_completed1),
+            last_chat_time1 = VALUES(last_chat_time1),
+            chat_progress2 = VALUES(chat_progress2),
+            shift_progress2 = VALUES(shift_progress2),
+            gift_completed2 = VALUES(gift_completed2),
+            last_chat_time2 = VALUES(last_chat_time2)
         """;
         
         try (Connection conn = connection.getConnection();
@@ -145,10 +165,14 @@ public class DatabaseManager {
                 stmt.setTimestamp(6, streak.getLastFire() != null ? Timestamp.valueOf(streak.getLastFire()) : null);
                 stmt.setInt(7, streak.getRestoreCount());
                 stmt.setBoolean(8, streak.isExpired());
-                stmt.setInt(9, streak.getChatProgress());
-                stmt.setInt(10, streak.getShiftProgress());
-                stmt.setBoolean(11, streak.isGiftCompleted());
-                stmt.setTimestamp(12, streak.getLastChatTime() != null ? Timestamp.valueOf(streak.getLastChatTime()) : null);
+                stmt.setInt(9, streak.getChatProgress1());
+                stmt.setInt(10, streak.getShiftProgress1());
+                stmt.setBoolean(11, streak.isGiftCompleted1());
+                stmt.setTimestamp(12, streak.getLastChatTime1() != null ? Timestamp.valueOf(streak.getLastChatTime1()) : null);
+                stmt.setInt(13, streak.getChatProgress2());
+                stmt.setInt(14, streak.getShiftProgress2());
+                stmt.setBoolean(15, streak.isGiftCompleted2());
+                stmt.setTimestamp(16, streak.getLastChatTime2() != null ? Timestamp.valueOf(streak.getLastChatTime2()) : null);
                 
                 stmt.addBatch();
             }
@@ -229,12 +253,19 @@ public class DatabaseManager {
         
         streak.setRestoreCount(rs.getInt("restore_count"));
         streak.setExpired(rs.getBoolean("expired"));
-        streak.setChatProgress(rs.getInt("chat_progress"));
-        streak.setShiftProgress(rs.getInt("shift_progress"));
-        streak.setGiftCompleted(rs.getBoolean("gift_completed"));
+        streak.setChatProgress1(rs.getInt("chat_progress1"));
+        streak.setShiftProgress1(rs.getInt("shift_progress1"));
+        streak.setGiftCompleted1(rs.getBoolean("gift_completed1"));
         
-        Timestamp lastChatTime = rs.getTimestamp("last_chat_time");
-        if (lastChatTime != null) streak.setLastChatTime(lastChatTime.toLocalDateTime());
+        Timestamp lastChatTime1 = rs.getTimestamp("last_chat_time1");
+        if (lastChatTime1 != null) streak.setLastChatTime1(lastChatTime1.toLocalDateTime());
+        
+        streak.setChatProgress2(rs.getInt("chat_progress2"));
+        streak.setShiftProgress2(rs.getInt("shift_progress2"));
+        streak.setGiftCompleted2(rs.getBoolean("gift_completed2"));
+        
+        Timestamp lastChatTime2 = rs.getTimestamp("last_chat_time2");
+        if (lastChatTime2 != null) streak.setLastChatTime2(lastChatTime2.toLocalDateTime());
         
         return streak;
     }
