@@ -35,10 +35,31 @@ fire-streak:
   days-before-expire: 1
   days-to-restore: 3
   max-restore-count: 3
-  limit-partners: false
+  limit-partners: true
   # Maximum number of partners (used when limit-partners is true)
-  max-partners: 5
+  max-partners: 10
   anti-same-ip: true
+  # Fire colors based on streak days
+  colors:
+    days:
+      1-2:
+        color: "&#FF0000"
+        display: "♨"
+        description: "Starting Fire"
+      3-15:
+        color: "&#FF6B00"
+        display: "♨"
+        description: "Blazing Fire"
+      15-9999:
+        color: "&#FF6B00"
+        display: "♨"
+        description: "Blazing Fire"
+      extinguished:
+        color: "&#323232"
+        display: "♨"
+        description: "Extinguished Fire"
+
+
 
 missions:
   # Chat Interaction
@@ -62,41 +83,6 @@ missions:
     enabled: true
     # Maximum distance between players (in blocks, -1 to disable)
     max-distance: 50
-
-fire-colors:
-  ranges:
-    1-2:
-      color: "&#FF0000"
-      display: "♨"
-      description: "Starting Fire"
-    3-6:
-      color: "&#FF6B00"
-      display: "♨"
-      description: "Blazing Fire"
-    7-13:
-      color: "&#FFD700"
-      display: "♨"
-      description: "Burning Bright!"
-    14-29:
-      color: "&#00FF00"
-      display: "♨"
-      description: "Strong Fire"
-    30-59:
-      color: "&#00FFFF"
-      display: "♨"
-      description: "Expert Fire"
-    60-89:
-      color: "&#0080FF"
-      display: "♨"
-      description: "Master Fire"
-    90-179:
-      color: "&#8000FF"
-      display: "♨"
-      description: "Legendary Fire"
-    180-999999:
-      color: "&#FF00FF"
-      display: "♨"
-      description: "Eternal Fire!"
 
 rewards:
   streak-rewards:
