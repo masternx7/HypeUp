@@ -92,7 +92,7 @@ public class DatabaseConnection {
         }
         
         File dbFile = new File(dataFolder, filename);
-        config.setJdbcUrl("jdbc:h2:" + dbFile.getAbsolutePath() + ";MODE=MySQL;CACHE_SIZE=8192;LOCK_MODE=1;UNDO_LOG=0;MAX_MEMORY_UNDO=50000");
+        config.setJdbcUrl("jdbc:h2:" + dbFile.getAbsolutePath() + ";MODE=MySQL;CACHE_SIZE=8192;LOCK_MODE=1");
         config.setDriverClassName("org.h2.Driver");
         config.setMaximumPoolSize(1);
         config.setConnectionTimeout(10000);
