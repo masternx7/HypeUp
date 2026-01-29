@@ -79,16 +79,21 @@ public class GUIListener implements Listener {
             return;
         }
         
-        List<FireStreak> streaks = plugin.getFireStreakManager().getPlayerStreaks(player.getUniqueId());
-        if (slot >= 0 && slot < streaks.size()) {
-            FireStreak streak = streaks.get(slot);
-            UUID partnerId = streak.getPartner(player.getUniqueId());
-            Player partner = Bukkit.getPlayer(partnerId);
-            
-            if (partner != null && partner.isOnline()) {
-                player.closeInventory();
-                guiManager.openInfoGUI(player, partner);
-                guiManager.playSoundFromConfig(player, listConfig.getConfigurationSection("partner-item"));
+        List<Integer> partnerSlots = listConfig.getIntegerList("partner-slots");
+        int index = partnerSlots.indexOf(slot);
+        
+        if (index >= 0) {
+            List<FireStreak> streaks = plugin.getFireStreakManager().getPlayerStreaks(player.getUniqueId());
+            if (index < streaks.size()) {
+                FireStreak streak = streaks.get(index);
+                UUID partnerId = streak.getPartner(player.getUniqueId());
+                Player partner = Bukkit.getPlayer(partnerId);
+                
+                if (partner != null && partner.isOnline()) {
+                    player.closeInventory();
+                    guiManager.openInfoGUI(player, partner);
+                    guiManager.playSoundFromConfig(player, listConfig.getConfigurationSection("partner-item"));
+                }
             }
         }
     }

@@ -83,29 +83,25 @@ public class GUIManager {
         Inventory inv = Bukkit.createInventory(null, config.getInt("size", 54), 
             ColorUtils.colorize(config.getString("title", "HypeUp - Partners")));
         
+        addBorder(inv, config);
+        addItem(inv, config, "close", player, player, null);
+        
         List<FireStreak> streaks = fireManager.getPlayerStreaks(player.getUniqueId());
         
         if (streaks.isEmpty()) {
             addItem(inv, config, "no-partners", player, player, null);
         } else {
-            int slot = 0;
+            List<Integer> partnerSlots = config.getIntegerList("partner-slots");
+            int index = 0;
             for (FireStreak streak : streaks) {
-                if (slot >= inv.getSize() - 9) break;
+                if (index >= partnerSlots.size()) break;
                 UUID partnerUUID = streak.getPartner(player.getUniqueId());
-                Player partner = Bukkit.getPlayer(partnerUUID);
                 
-                if (partner == null) {
-                    partner = Bukkit.getOfflinePlayer(partnerUUID).getPlayer();
-                }
-                
-                if (partner != null || Bukkit.getOfflinePlayer(partnerUUID).hasPlayedBefore()) {
-                    addPartnerItem(inv, slot++, config, player, Bukkit.getOfflinePlayer(partnerUUID), streak);
+                if (Bukkit.getOfflinePlayer(partnerUUID).hasPlayedBefore()) {
+                    addPartnerItem(inv, partnerSlots.get(index++), config, player, Bukkit.getOfflinePlayer(partnerUUID), streak);
                 }
             }
         }
-        
-        addItem(inv, config, "close", player, player, null);
-        addBorder(inv, config);
         
         player.openInventory(inv);
         openGUIs.put(player.getUniqueId(), "list");

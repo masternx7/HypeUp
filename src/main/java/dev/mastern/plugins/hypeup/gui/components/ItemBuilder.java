@@ -42,16 +42,31 @@ public class ItemBuilder {
     }
     
     public static ItemStack createSkull(ConfigurationSection config, OfflinePlayer skullOwner, Map<String, String> placeholders) {
-        ItemStack item = createFromConfig(config, placeholders);
+        Material material = Material.valueOf(config.getString("material", "STONE"));
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
         
-        if (item.getType() == Material.PLAYER_HEAD) {
-            ItemMeta meta = item.getItemMeta();
-            if (meta instanceof SkullMeta skullMeta) {
-                skullMeta.setOwningPlayer(skullOwner);
-                item.setItemMeta(skullMeta);
-            }
+        if (config.contains("custom-model-data")) {
+            meta.setCustomModelData(config.getInt("custom-model-data"));
         }
         
+        if (material == Material.PLAYER_HEAD && meta instanceof SkullMeta skullMeta && skullOwner != null) {
+            skullMeta.setOwningPlayer(skullOwner);
+        }
+        
+        String name = replacePlaceholders(config.getString("name", ""), placeholders);
+        meta.displayName(ColorUtils.colorize(name).decoration(TextDecoration.ITALIC, false));
+        
+        if (config.contains("lore")) {
+            List<String> lore = config.getStringList("lore");
+            meta.lore(lore.stream()
+                .map(line -> replacePlaceholders(line, placeholders))
+                .map(ColorUtils::colorize)
+                .map(component -> component.decoration(TextDecoration.ITALIC, false))
+                .toList());
+        }
+        
+        item.setItemMeta(meta);
         return item;
     }
     
