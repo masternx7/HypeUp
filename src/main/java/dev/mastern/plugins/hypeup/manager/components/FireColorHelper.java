@@ -33,7 +33,7 @@ public class FireColorHelper {
         }
         
         placeholders.put("fire-color", "&#FFFFFF");
-        placeholders.put("fire-display", "🔥 ไฟ");
+        placeholders.put("fire-display", "");
         placeholders.put("fire-description", "");
         return placeholders;
     }
