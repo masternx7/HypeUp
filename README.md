@@ -13,6 +13,42 @@ A Minecraft plugin that brings TikTok's fire streak system to the game! Players 
 | `/hypeup list` | View all fire partners | `hypeup.use` |
 | `/hypeup reload` | Reload configuration | `hypeup.admin` |
 
+## How to Light Fire
+
+To maintain a fire streak with your partner, you must complete **3 daily missions** before midnight:
+
+### Mission Requirements
+
+1. **Chat Mission**
+   - Send at least **2 messages** to your partner
+   - Messages must be in chat (not commands)
+   - Anti-spam protection prevents instant completion
+
+2. **Shift Mission**
+   - Press **Shift (Sneak)** near your partner at least **2 times**
+   - Must be within configured distance (default: 3 blocks)
+   - Shows progress in chat
+
+3. **Gift Mission**
+   - Use `/hypeup send <partner>` to open gift GUI
+   - Place items in the GUI and confirm
+   - Items will be transferred to partner's inventory
+
+### Lighting the Fire
+
+1. Choose a partner using `/hypeup send <player>`
+2. Complete all 3 missions (Chat, Shift, Gift)
+3. Fire will automatically light when all missions are done
+4. Your streak increases by 1 day
+5. **Important:** Must complete missions daily before midnight to maintain streak!
+
+### Streak Mechanics
+
+- **Reset Time:** Midnight (00:00) in configured timezone
+- **Restore System:** Can restore expired fire up to 3 times (if within restore days)
+- **Fire Colors:** Fire changes color based on streak (Red → Orange → Gold → Rainbow...)
+- **Rewards:** Receive rewards at milestone days (7, 14, 30, 60, 90)
+
 ## PlaceholderAPI Support
 
 ### General Placeholders
