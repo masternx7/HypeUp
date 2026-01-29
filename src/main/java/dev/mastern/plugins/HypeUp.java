@@ -31,7 +31,6 @@ public final class HypeUp extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         saveResource("message.yml", false);
-        saveResource("gui.yml", false);
         
         getLogger().info("╔═══════════════════════════════════════════╗");
         getLogger().info("║         HypeUp - Initializing...          ║");
