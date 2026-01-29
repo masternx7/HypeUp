@@ -41,7 +41,14 @@ public class DatabaseConnection {
         String username = cfg.getString("database.mysql.username", "root");
         String password = cfg.getString("database.mysql.password", "");
         boolean useSSL = cfg.getBoolean("database.mysql.use-ssl", false);
-        int poolSize = cfg.getInt("database.mysql.pool-size", 10);
+        
+        // Pool settings
+        int maxPoolSize = cfg.getInt("database.mysql.pool.maximum-pool-size", 10);
+        int minIdle = cfg.getInt("database.mysql.pool.minimum-idle", 2);
+        long connectionTimeout = cfg.getLong("database.mysql.pool.connection-timeout", 30000);
+        long idleTimeout = cfg.getLong("database.mysql.pool.idle-timeout", 600000);
+        long maxLifetime = cfg.getLong("database.mysql.pool.max-lifetime", 1800000);
+        long leakDetectionThreshold = cfg.getLong("database.mysql.pool.leak-detection-threshold", 60000);
         
         String jdbcUrl = "jdbc:mariadb://" + host + ":" + port + "/" + database 
             + "?useSSL=" + useSSL 
@@ -59,12 +66,12 @@ public class DatabaseConnection {
         config.setJdbcUrl(jdbcUrl);
         config.setUsername(username);
         config.setPassword(password);
-        config.setMaximumPoolSize(poolSize);
-        config.setMinimumIdle(Math.min(poolSize / 2, 5));
-        config.setConnectionTimeout(30000);
-        config.setIdleTimeout(600000);
-        config.setMaxLifetime(1800000);
-        config.setLeakDetectionThreshold(60000);
+        config.setMaximumPoolSize(maxPoolSize);
+        config.setMinimumIdle(minIdle);
+        config.setConnectionTimeout(connectionTimeout);
+        config.setIdleTimeout(idleTimeout);
+        config.setMaxLifetime(maxLifetime);
+        config.setLeakDetectionThreshold(leakDetectionThreshold);
         config.setValidationTimeout(5000);
         config.setTransactionIsolation("TRANSACTION_READ_COMMITTED");
         config.addDataSourceProperty("cachePrepStmts", "true");

@@ -19,7 +19,14 @@ database:
     username: root
     password: password
     use-ssl: false
-    pool-size: 10
+    pool:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      leak-detection-threshold: 60000
+  # For SQLITE, the database file will be created in the plugin data folder
   sqlite:
     file: hypeup.db
 
