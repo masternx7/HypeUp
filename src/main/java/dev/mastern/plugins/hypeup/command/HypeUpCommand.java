@@ -250,6 +250,254 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                 return true;
             }
             
+            case "admin" -> {
+                if (!sender.hasPermission("hypeup.admin")) {
+                    if (sender instanceof Player player) {
+                        messages.sendMessage(player, "general.no-permission");
+                    }
+                    return true;
+                }
+                
+                if (args.length < 2) {
+                    if (sender instanceof Player player) {
+                        messages.sendMultilineMessage(player, "admin.help", null);
+                    } else {
+                        sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.help")));
+                    }
+                    return true;
+                }
+                
+                String adminAction = args[1].toLowerCase();
+                
+                switch (adminAction) {
+                    case "set" -> {
+                        if (args.length < 5) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.set.usage")));
+                            return true;
+                        }
+                        
+                        Player player1 = Bukkit.getPlayer(args[2]);
+                        Player player2 = Bukkit.getPlayer(args[3]);
+                        
+                        if (player1 == null || player2 == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.players-not-found")));
+                            return true;
+                        }
+                        
+                        int amount;
+                        try {
+                            amount = Integer.parseInt(args[4]);
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.amount-invalid")));
+                            return true;
+                        }
+                        
+                        FireStreak streak = fireManager.getOrCreateStreak(player1.getUniqueId(), player2.getUniqueId());
+                        streak.setCurrentStreak(amount);
+                        if (amount > streak.getMaxStreak()) {
+                            streak.setMaxStreak(amount);
+                        }
+                        
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                            plugin.getDatabaseManager().saveFireStreak(streak);
+                        });
+                        
+                        sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.set.success")
+                            .replace("{player1}", player1.getName())
+                            .replace("{player2}", player2.getName())
+                            .replace("{amount}", String.valueOf(amount))));
+                        return true;
+                    }
+                    
+                    case "give" -> {
+                        if (args.length < 5) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.give.usage")));
+                            return true;
+                        }
+                        
+                        Player player1 = Bukkit.getPlayer(args[2]);
+                        Player player2 = Bukkit.getPlayer(args[3]);
+                        
+                        if (player1 == null || player2 == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.players-not-found")));
+                            return true;
+                        }
+                        
+                        int amount;
+                        try {
+                            amount = Integer.parseInt(args[4]);
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.amount-invalid")));
+                            return true;
+                        }
+                        
+                        FireStreak streak = fireManager.getOrCreateStreak(player1.getUniqueId(), player2.getUniqueId());
+                        int newAmount = streak.getCurrentStreak() + amount;
+                        streak.setCurrentStreak(newAmount);
+                        if (newAmount > streak.getMaxStreak()) {
+                            streak.setMaxStreak(newAmount);
+                        }
+                        
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                            plugin.getDatabaseManager().saveFireStreak(streak);
+                        });
+                        
+                        sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.give.success")
+                            .replace("{player1}", player1.getName())
+                            .replace("{player2}", player2.getName())
+                            .replace("{amount}", String.valueOf(amount))));
+                        return true;
+                    }
+                    
+                    case "take" -> {
+                        if (args.length < 5) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.take.usage")));
+                            return true;
+                        }
+                        
+                        Player player1 = Bukkit.getPlayer(args[2]);
+                        Player player2 = Bukkit.getPlayer(args[3]);
+                        
+                        if (player1 == null || player2 == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.players-not-found")));
+                            return true;
+                        }
+                        
+                        int amount;
+                        try {
+                            amount = Integer.parseInt(args[4]);
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.amount-invalid")));
+                            return true;
+                        }
+                        
+                        FireStreak streak = fireManager.getStreak(player1.getUniqueId(), player2.getUniqueId());
+                        if (streak == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.no-streak")));
+                            return true;
+                        }
+                        
+                        int newAmount = Math.max(0, streak.getCurrentStreak() - amount);
+                        streak.setCurrentStreak(newAmount);
+                        
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                            plugin.getDatabaseManager().saveFireStreak(streak);
+                        });
+                        
+                        sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.take.success")
+                            .replace("{player1}", player1.getName())
+                            .replace("{player2}", player2.getName())
+                            .replace("{amount}", String.valueOf(amount))));
+                        return true;
+                    }
+                    
+                    case "expired" -> {
+                        if (args.length < 4) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.expired.usage")));
+                            return true;
+                        }
+                        
+                        Player player1 = Bukkit.getPlayer(args[2]);
+                        Player player2 = Bukkit.getPlayer(args[3]);
+                        
+                        if (player1 == null || player2 == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.players-not-found")));
+                            return true;
+                        }
+                        
+                        FireStreak streak = fireManager.getStreak(player1.getUniqueId(), player2.getUniqueId());
+                        if (streak == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.no-streak")));
+                            return true;
+                        }
+                        
+                        streak.setExpired(true);
+                        streak.setCurrentStreak(0);
+                        
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                            plugin.getDatabaseManager().saveFireStreak(streak);
+                        });
+                        
+                        sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.expired.success")
+                            .replace("{player1}", player1.getName())
+                            .replace("{player2}", player2.getName())));
+                        return true;
+                    }
+                    
+                    case "extinguishfire" -> {
+                        if (args.length < 4) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.extinguishfire.usage")));
+                            return true;
+                        }
+                        
+                        Player player1 = Bukkit.getPlayer(args[2]);
+                        Player player2 = Bukkit.getPlayer(args[3]);
+                        
+                        if (player1 == null || player2 == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.players-not-found")));
+                            return true;
+                        }
+                        
+                        FireStreak streak = fireManager.getStreak(player1.getUniqueId(), player2.getUniqueId());
+                        if (streak == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.no-streak")));
+                            return true;
+                        }
+                        
+                        int currentStreak = streak.getCurrentStreak();
+                        streak.resetDailyProgress();
+                        streak.setLastFire(null);
+                        
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                            plugin.getDatabaseManager().saveFireStreak(streak);
+                        });
+                        
+                        sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.extinguishfire.success")
+                            .replace("{player1}", player1.getName())
+                            .replace("{player2}", player2.getName())
+                            .replace("{streak}", String.valueOf(currentStreak))));
+                        return true;
+                    }
+                    
+                    case "resetmission" -> {
+                        if (args.length < 4) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.resetmission.usage")));
+                            return true;
+                        }
+                        
+                        Player player1 = Bukkit.getPlayer(args[2]);
+                        Player player2 = Bukkit.getPlayer(args[3]);
+                        
+                        if (player1 == null || player2 == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.players-not-found")));
+                            return true;
+                        }
+                        
+                        FireStreak streak = fireManager.getStreak(player1.getUniqueId(), player2.getUniqueId());
+                        if (streak == null) {
+                            sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.no-streak")));
+                            return true;
+                        }
+                        
+                        streak.resetDailyProgress();
+                        
+                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                            plugin.getDatabaseManager().saveFireStreak(streak);
+                        });
+                        
+                        sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.resetmission.success")
+                            .replace("{player1}", player1.getName())
+                            .replace("{player2}", player2.getName())));
+                        return true;
+                    }
+                    
+                    default -> {
+                        sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.unknown-command")));
+                        return true;
+                    }
+                }
+            }
+            
             default -> {
                 if (sender instanceof Player player) {
                     messages.sendMultilineMessage(player, "commands.help", null);
@@ -270,6 +518,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
             
             if (sender.hasPermission("hypeup.admin")) {
                 completions.add("reload");
+                completions.add("admin");
             }
             
             return completions.stream()
@@ -277,10 +526,32 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                 .collect(Collectors.toList());
         }
         
-        if (args.length == 2 && (args[0].equalsIgnoreCase("send") || args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("msg"))) {
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("send") || args[0].equalsIgnoreCase("info") || args[0].equalsIgnoreCase("msg")) {
+                return Bukkit.getOnlinePlayers().stream()
+                    .map(Player::getName)
+                    .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
+                    .collect(Collectors.toList());
+            }
+            
+            if (args[0].equalsIgnoreCase("admin") && sender.hasPermission("hypeup.admin")) {
+                return Arrays.asList("set", "give", "take", "expired", "extinguishfire", "resetmission").stream()
+                    .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
+                    .collect(Collectors.toList());
+            }
+        }
+        
+        if (args.length == 3 && args[0].equalsIgnoreCase("admin") && sender.hasPermission("hypeup.admin")) {
             return Bukkit.getOnlinePlayers().stream()
                 .map(Player::getName)
-                .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
+                .filter(name -> name.toLowerCase().startsWith(args[2].toLowerCase()))
+                .collect(Collectors.toList());
+        }
+        
+        if (args.length == 4 && args[0].equalsIgnoreCase("admin") && sender.hasPermission("hypeup.admin")) {
+            return Bukkit.getOnlinePlayers().stream()
+                .map(Player::getName)
+                .filter(name -> name.toLowerCase().startsWith(args[3].toLowerCase()))
                 .collect(Collectors.toList());
         }
         

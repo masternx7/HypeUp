@@ -5,7 +5,7 @@ player-info:
   slot: 4
   material: PLAYER_HEAD
   skull-owner: "{target}"
-  name: "&#FFD93D<smallcaps>{target}</smallcaps>"
+  name: "&#FFD93D&l<smallcaps>{target}</smallcaps>"
   lore:
     - ""
     - "{fire-color}{fire-display} &#FFD93D({streak} ᴅᴀʏꜱ)"
@@ -37,7 +37,7 @@ restore-info:
 missions-info:
   slot: 15
   material: WRITABLE_BOOK
-  name: "&#FFD93Dᴛᴏᴅᴀʏ'ꜱ ᴍɪꜱꜱɪᴏɴꜱ"
+  name: "&#FFD93D&lᴛᴏᴅᴀʏ'ꜱ ᴍɪꜱꜱɪᴏɴꜱ"
   lore:
     - ""
     - "&#FFE49Bᴄʜᴀᴛ: {chat-status}"

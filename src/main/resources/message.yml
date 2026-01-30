@@ -84,3 +84,35 @@ commands:
     &#FF6B6B&l━━━━━━━━━━━━━━━━
   
   usage: "{prefix} &#FF0000Usage: {usage}"
+
+admin:
+  help: |
+    &#FF6B6B&lAdmin Commands:
+    &#FFD93D/hu admin set <player1> <player2> <amount>
+    &#FFD93D/hu admin give <player1> <player2> <amount>
+    &#FFD93D/hu admin take <player1> <player2> <amount>
+    &#FFD93D/hu admin expired <player1> <player2>
+    &#FFD93D/hu admin extinguishfire <player1> <player2>
+    &#FFD93D/hu admin resetmission <player1> <player2>
+  players-not-found: "{prefix} &#FF0000One or both players not found!"
+  amount-invalid: "{prefix} &#FF0000Amount must be a number!"
+  no-streak: "{prefix} &#FF0000No fire streak found between these players!"
+  unknown-command: "{prefix} &#FF0000Unknown admin command!"
+  set:
+    usage: "{prefix} &#FF0000Usage: /hu admin set <player1> <player2> <amount>"
+    success: "{prefix} &#00FF00Set fire streak between {player1} and {player2} to {amount}"
+  give:
+    usage: "{prefix} &#FF0000Usage: /hu admin give <player1> <player2> <amount>"
+    success: "{prefix} &#00FF00Added {amount} days to fire streak between {player1} and {player2}"
+  take:
+    usage: "{prefix} &#FF0000Usage: /hu admin take <player1> <player2> <amount>"
+    success: "{prefix} &#00FF00Removed {amount} days from fire streak between {player1} and {player2}"
+  expired:
+    usage: "{prefix} &#FF0000Usage: /hu admin expired <player1> <player2>"
+    success: "{prefix} &#00FF00Set fire streak between {player1} and {player2} as expired"
+  extinguishfire:
+    usage: "{prefix} &#FF0000Usage: /hu admin extinguishfire <player1> <player2>"
+    success: "{prefix} &#00FF00Extinguished fire between {player1} and {player2} (streak kept: {streak} days)"
+  resetmission:
+    usage: "{prefix} &#FF0000Usage: /hu admin resetmission <player1> <player2>"
+    success: "{prefix} &#00FF00Reset missions for fire streak between {player1} and {player2}"
