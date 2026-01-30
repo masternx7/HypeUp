@@ -4,14 +4,28 @@ A Minecraft plugin that brings TikTok's fire streak system to the game! Players 
 
 ## Commands
 
+### Player Commands
+
 | Command | Description | Permission |
 |--------|----------|------------|
 | `/hypeup` | Open fire partner list GUI | `hypeup.use` |
 | `/hypeup help` | Show help message | `hypeup.use` |
-| `/hypeup send <player>` | Send items to player | `hypeup.use` |
-| `/hypeup info [player]` | View fire streak information | `hypeup.use` |
+| `/hypeup send <player>` | Open gift GUI to send items | `hypeup.use` |
+| `/hypeup info <player>` | View fire streak info with player | `hypeup.use` |
 | `/hypeup list` | View all fire partners | `hypeup.use` |
+| `/hypeup msg <player> <message>` | Send message for chat mission | `hypeup.use` |
 | `/hypeup reload` | Reload configuration | `hypeup.admin` |
+
+### Admin Commands
+
+| Command | Description | Permission |
+|--------|----------|------------|
+| `/hypeup admin set <player1> <player2> <amount>` | Set fire streak to specific value | `hypeup.admin` |
+| `/hypeup admin give <player1> <player2> <amount>` | Add days to fire streak | `hypeup.admin` |
+| `/hypeup admin take <player1> <player2> <amount>` | Remove days from fire streak | `hypeup.admin` |
+| `/hypeup admin expired <player1> <player2>` | Set fire as expired (streak = 0) | `hypeup.admin` |
+| `/hypeup admin extinguish <player1> <player2>` | Extinguish fire but keep streak | `hypeup.admin` |
+| `/hypeup admin reset <player1> <player2>` | Reset daily missions | `hypeup.admin` |
 
 ## How to Light Fire
 
@@ -19,28 +33,43 @@ To maintain a fire streak with your partner, you must complete **3 daily mission
 
 ### Mission Requirements
 
+You must complete **all 3 missions** with your partner each day:
+
 1. **Chat Mission**
-   - Send at least **2 messages** to your partner
-   - Messages must be in chat (not commands)
-   - Anti-spam protection prevents instant completion
+   - Send at least **2 messages** to your partner using `/hypeup msg <player> <message>`
+   - Messages must have minimum delay between them (default: 5-10 seconds)
+   - Must be within configured distance (default: 50 blocks) or -1 for unlimited
+   - Both players must send messages to each other
+   - Progress shows in chat: "Chat progress with [Player]: 1/2"
 
 2. **Shift Mission**
    - Press **Shift (Sneak)** near your partner at least **2 times**
    - Must be within configured distance (default: 3 blocks)
-   - Shows progress in chat
+   - Each shift interaction counts towards progress
+   - Progress shows in chat: "Shift interaction with [Player]: 1/2"
+   - Both players must complete shift interactions
 
 3. **Gift Mission**
    - Use `/hypeup send <partner>` to open gift GUI
-   - Place items in the GUI and confirm
+   - Place any items in the GUI slots
+   - Click confirm button to send items
    - Items will be transferred to partner's inventory
+   - Must be within configured distance (default: 50 blocks) or -1 for unlimited
+   - Both players must send gifts to each other
 
 ### Lighting the Fire
 
-1. Choose a partner using `/hypeup send <player>`
-2. Complete all 3 missions (Chat, Shift, Gift)
-3. Fire will automatically light when all missions are done
-4. Your streak increases by 1 day
-5. **Important:** Must complete missions daily before midnight to maintain streak!
+1. **Choose a Partner:** Use `/hypeup send <player>` or `/hypeup msg <player> <message>`
+2. **Complete Missions:** Both you and your partner must complete all 3 missions
+   - Chat: Send messages with `/hypeup msg`
+   - Shift: Sneak near each other
+   - Gift: Send items through GUI
+3. **Auto Light:** Fire lights automatically when both players complete all missions
+4. **Streak Increase:** Your fire streak increases by 1 day
+5. **Daily Requirement:** Must complete before midnight to maintain streak!
+6. **Mission Reset:** Missions reset daily at midnight (configured timezone)
+
+**Note:** If you miss a day, your fire will expire. You can restore it within the configured restore period (default: 3 days) up to a maximum number of times (default: 3 restores).
 
 ### Streak Mechanics
 
