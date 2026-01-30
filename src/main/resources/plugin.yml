@@ -9,7 +9,7 @@ softdepend: [ PlaceholderAPI ]
 commands:
   hypeup:
     description: Main command for HypeUp plugin
-    usage: /<command> [help|send|info|list|reload]
+    usage: /<command> [help|send|info|list|reload|admin]
     aliases: [hu, fire]
     permission: hypeup.use
 
