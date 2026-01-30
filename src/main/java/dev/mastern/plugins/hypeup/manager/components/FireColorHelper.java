@@ -2,8 +2,8 @@ package dev.mastern.plugins.hypeup.manager.components;
 
 import dev.mastern.plugins.hypeup.HypeUp;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FireColorHelper {
     
@@ -17,7 +17,17 @@ public class FireColorHelper {
         Map<String, String> placeholders = new HashMap<>();
         
         if (plugin.getConfig().contains("fire-streak.colors.days")) {
-            for (String rangeKey : plugin.getConfig().getConfigurationSection("fire-streak.colors.days").getKeys(false)) {
+            List<String> rangeKeys = plugin.getConfig().getConfigurationSection("fire-streak.colors.days")
+                    .getKeys(false).stream()
+                    .filter(key -> key.contains("-"))
+                    .sorted((a, b) -> {
+                        int minA = Integer.parseInt(a.split("-")[0]);
+                        int minB = Integer.parseInt(b.split("-")[0]);
+                        return Integer.compare(minA, minB);
+                    })
+                    .collect(Collectors.toList());
+            
+            for (String rangeKey : rangeKeys) {
                 String[] range = rangeKey.split("-");
                 int min = Integer.parseInt(range[0]);
                 int max = Integer.parseInt(range[1]);
@@ -32,6 +42,7 @@ public class FireColorHelper {
             }
         }
         
+        // Default to extinguished color if no range matches
         placeholders.put("fire-color", plugin.getConfig().getString("fire-streak.colors.days.extinguished.color", "&#FFFFFF"));
         placeholders.put("fire-display", plugin.getConfig().getString("fire-streak.colors.days.extinguished.display", ""));
         placeholders.put("fire-description", plugin.getConfig().getString("fire-streak.colors.days.extinguished.description", ""));

@@ -6,7 +6,7 @@
 
     <groupId>dev.mastern.plugins</groupId>
     <artifactId>HypeUp</artifactId>
-    <version>1.0.0-BETA-3</version>
+    <version>1.0.0-BETA-5</version>
     <packaging>jar</packaging>
 
     <name>HypeUp</name>

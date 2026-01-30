@@ -5,6 +5,7 @@ import dev.mastern.plugins.hypeup.data.FireStreak;
 import dev.mastern.plugins.hypeup.gui.GUIManager;
 import dev.mastern.plugins.hypeup.manager.FireStreakManager;
 import dev.mastern.plugins.hypeup.manager.MessageManager;
+import dev.mastern.plugins.hypeup.utils.ColorUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -38,7 +39,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
             if (sender instanceof Player player) {
                 guiManager.openListGUI(player);
             } else {
-                messages.sendMessage((Player) sender, "general.only-player");
+                sender.sendMessage(ColorUtils.colorize(messages.getMessage("general.only-player")));
             }
             return true;
         }
@@ -55,7 +56,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
             
             case "send" -> {
                 if (!(sender instanceof Player player)) {
-                    messages.sendMessage((Player) sender, "general.only-player");
+                    sender.sendMessage(ColorUtils.colorize(messages.getMessage("general.only-player")));
                     return true;
                 }
                 
@@ -97,12 +98,14 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
             
             case "info" -> {
                 if (!(sender instanceof Player player)) {
-                    messages.sendMessage((Player) sender, "general.only-player");
+                    sender.sendMessage(ColorUtils.colorize(messages.getMessage("general.only-player")));
                     return true;
                 }
                 
                 if (args.length < 2) {
-                    guiManager.openListGUI(player);
+                    Map<String, String> placeholders = new HashMap<>();
+                    placeholders.put("usage", "/hypeup info <player>");
+                    messages.sendMessage(player, "commands.usage", placeholders);
                     return true;
                 }
                 
@@ -115,7 +118,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                 }
                 
                 if (target.equals(player)) {
-                    guiManager.openListGUI(player);
+                    messages.sendMessage(player, "general.no-permission");
                     return true;
                 }
                 
@@ -125,7 +128,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
             
             case "list" -> {
                 if (!(sender instanceof Player player)) {
-                    messages.sendMessage((Player) sender, "general.only-player");
+                    sender.sendMessage(ColorUtils.colorize(messages.getMessage("general.only-player")));
                     return true;
                 }
                 
@@ -135,7 +138,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
             
             case "msg" -> {
                 if (!(sender instanceof Player player)) {
-                    messages.sendMessage((Player) sender, "general.only-player");
+                    sender.sendMessage(ColorUtils.colorize(messages.getMessage("general.only-player")));
                     return true;
                 }
                 

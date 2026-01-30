@@ -95,6 +95,9 @@ public class GUIManager {
             int index = 0;
             for (FireStreak streak : streaks) {
                 if (index >= partnerSlots.size()) break;
+                
+                if (streak.getCurrentStreak() <= 0) continue;
+                
                 UUID partnerUUID = streak.getPartner(player.getUniqueId());
                 
                 if (Bukkit.getOfflinePlayer(partnerUUID).hasPlayedBefore()) {

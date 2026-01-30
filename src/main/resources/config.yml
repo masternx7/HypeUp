@@ -31,7 +31,7 @@ database:
     file: hypeup.db
 
 fire-streak:
-  days-to-start: 3
+  days-to-start: 1
   days-before-expire: 1
   days-to-restore: 3
   max-restore-count: 3
@@ -44,19 +44,19 @@ fire-streak:
     days:
       1-2:
         color: "&#FF0000"
-        display: "♨"
+        display: "Fire"
         description: "Starting Fire"
       3-15:
         color: "&#FF6B00"
-        display: "♨"
+        display: "Fire"
         description: "Blazing Fire"
-      15-9999:
+      16-9999:
         color: "&#FF6B00"
-        display: "♨"
+        display: "Fire"
         description: "Blazing Fire"
       extinguished:
         color: "&#323232"
-        display: "♨"
+        display: "Fire"
         description: "Extinguished Fire"
 
 
