@@ -293,6 +293,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                         }
                         
                         FireStreak streak = fireManager.getOrCreateStreak(player1.getUniqueId(), player2.getUniqueId());
+                        int oldStreak = streak.getCurrentStreak();
                         streak.setCurrentStreak(amount);
                         if (amount > streak.getMaxStreak()) {
                             streak.setMaxStreak(amount);
@@ -301,6 +302,15 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                             plugin.getDatabaseManager().saveFireStreak(streak);
                         });
+                        
+                        if (amount > oldStreak) {
+                            for (int rewardStreak : plugin.getRewardManager().getRewardStreaks()) {
+                                if (rewardStreak > oldStreak && rewardStreak <= amount) {
+                                    plugin.getRewardManager().checkAndGiveRewards(player1, rewardStreak);
+                                    plugin.getRewardManager().checkAndGiveRewards(player2, rewardStreak);
+                                }
+                            }
+                        }
                         
                         sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.set.success")
                             .replace("{player1}", player1.getName())
@@ -332,7 +342,8 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                         }
                         
                         FireStreak streak = fireManager.getOrCreateStreak(player1.getUniqueId(), player2.getUniqueId());
-                        int newAmount = streak.getCurrentStreak() + amount;
+                        int oldStreak = streak.getCurrentStreak();
+                        int newAmount = oldStreak + amount;
                         streak.setCurrentStreak(newAmount);
                         if (newAmount > streak.getMaxStreak()) {
                             streak.setMaxStreak(newAmount);
@@ -341,6 +352,13 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                             plugin.getDatabaseManager().saveFireStreak(streak);
                         });
+                        
+                        for (int rewardStreak : plugin.getRewardManager().getRewardStreaks()) {
+                            if (rewardStreak > oldStreak && rewardStreak <= newAmount) {
+                                plugin.getRewardManager().checkAndGiveRewards(player1, rewardStreak);
+                                plugin.getRewardManager().checkAndGiveRewards(player2, rewardStreak);
+                            }
+                        }
                         
                         sender.sendMessage(ColorUtils.colorize(messages.getMessage("admin.give.success")
                             .replace("{player1}", player1.getName())
