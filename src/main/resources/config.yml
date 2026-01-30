@@ -41,17 +41,17 @@ fire-streak:
   colors:
     days:
       1-2:
-        color: "&#FF0000"
+        color: "&#FFD25A"
         display: "Fire"
         description: "Starting Fire"
       3-15:
-        color: "&#FF6B00"
+        color: "&#C6DEF1"
         display: "Fire"
-        description: "Blazing Fire"
+        description: "Blue Fire"
       16-9999:
-        color: "&#FF6B00"
+        color: "&#AD79FC"
         display: "Fire"
-        description: "Blazing Fire"
+        description: "Purple Fire"
       extinguished:
         color: "&#646464"
         display: "Fire"
