@@ -32,12 +32,6 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
 
-    - name: Create source archive
-      run: |
-        mkdir -p release
-        zip -r release/HypeUp-${{ steps.version.outputs.VERSION }}-src.zip . \
-          -x ".git/*" "target/*" "release/*" "*.iml" ".idea/*"
-
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
@@ -52,9 +46,7 @@ jobs:
           
           ### Changes
           See [commits](https://github.com/${{ github.repository }}/commits/${{ github.ref_name }})
-        files: |
-          target/HypeUp-*.jar
-          release/HypeUp-*-src.zip
+        files: target/HypeUp-*.jar
         draft: false
         prerelease: false
       env:
