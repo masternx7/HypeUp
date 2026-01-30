@@ -25,7 +25,6 @@ public class FireStreakManager {
     private FireExpirationHandler expirationHandler;
     
     private ZoneId timeZone;
-    private int daysToStart;
     private int daysBeforeExpire;
     private int daysToRestore;
     private int maxRestoreCount;
@@ -51,7 +50,6 @@ public class FireStreakManager {
             timeZone = ZoneId.of("Asia/Bangkok");
         }
         
-        daysToStart = plugin.getConfig().getInt("fire-streak.days-to-start", 3);
         daysBeforeExpire = plugin.getConfig().getInt("fire-streak.days-before-expire", 1);
         daysToRestore = plugin.getConfig().getInt("fire-streak.days-to-restore", 3);
         maxRestoreCount = plugin.getConfig().getInt("fire-streak.max-restore-count", 3);
@@ -139,13 +137,12 @@ public class FireStreakManager {
         messages.sendMessage(player1, "fire.success", placeholders1);
         messages.sendMessage(player2, "fire.partner-success", placeholders2);
         
-        if (streak.getCurrentStreak() >= daysToStart) {
-            messages.sendMultilineMessage(player1, "fire.ignited", placeholders1);
-            messages.sendMultilineMessage(player2, "fire.partner-ignited", placeholders2);
-            
-            plugin.getRewardManager().checkAndGiveRewards(player1, streak.getCurrentStreak());
-            plugin.getRewardManager().checkAndGiveRewards(player2, streak.getCurrentStreak());
-        }
+        // Always send ignited message and check rewards from day 1
+        messages.sendMultilineMessage(player1, "fire.ignited", placeholders1);
+        messages.sendMultilineMessage(player2, "fire.partner-ignited", placeholders2);
+        
+        plugin.getRewardManager().checkAndGiveRewards(player1, streak.getCurrentStreak());
+        plugin.getRewardManager().checkAndGiveRewards(player2, streak.getCurrentStreak());
     }
     
     public Map<String, String> getFireColorPlaceholders(int streak) {
@@ -278,10 +275,6 @@ public class FireStreakManager {
         } else {
             return player2.toString() + ":" + player1.toString();
         }
-    }
-    
-    public int getDaysToStart() {
-        return daysToStart;
     }
     
     public int getMaxRestoreCount() {

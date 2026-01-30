@@ -42,8 +42,6 @@ confirm:
   name: "&#00FF00&lConfirm Send"
   lore:
     - ""
-    - "&#FFD93DItem count: &#FF6B6B{count}"
-    - ""
     - "&#00FF00Click to send items to {target}"
   sound: ENTITY_PLAYER_LEVELUP
 

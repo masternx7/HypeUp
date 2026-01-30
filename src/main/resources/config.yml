@@ -31,7 +31,6 @@ database:
     file: hypeup.db
 
 fire-streak:
-  days-to-start: 1
   days-before-expire: 1
   days-to-restore: 3
   max-restore-count: 3
@@ -39,7 +38,6 @@ fire-streak:
   # Maximum number of partners (used when limit-partners is true)
   max-partners: 10
   anti-same-ip: true
-  # Fire colors based on streak days
   colors:
     days:
       1-2:
@@ -59,30 +57,22 @@ fire-streak:
         display: "Fire"
         description: "Extinguished Fire"
 
-
-
 missions:
-  # Chat Interaction
   chat:
     enabled: true
     min-messages: 2
     min-delay-seconds: 5
     max-delay-seconds: 10
-    # Maximum distance between players (in blocks, -1 to disable)
-    max-distance: 50
+    max-distance: 50 #-1 to disable
 
-  # Shift Interaction
   shift:
     enabled: true
     required-interactions: 2
-    # Maximum distance between players (in blocks, -1 to disable)
-    max-distance: 3
+    max-distance: 3 #-1 to disable
   
-  # Item Gift
   item-gift:
     enabled: true
-    # Maximum distance between players (in blocks, -1 to disable)
-    max-distance: 50
+    max-distance: 50 #-1 to disable
 
 rewards:
   streak-rewards:

@@ -1,5 +1,5 @@
 # HEX Color: &#RRGGBB or <#RRGGBB>
-# Placeholder: {prefix}, {player}, {target}, {streak}, {level}, {days}, {count}
+# Placeholder: {prefix}, {player}, {target}, {streak}, {days}, {count}
 prefix: "&#FF6B6B&l[&#FFD93D&lHypeUp&#FF6B6B&l]&r"
 
 general:
