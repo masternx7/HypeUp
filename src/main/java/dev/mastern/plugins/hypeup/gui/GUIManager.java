@@ -127,7 +127,7 @@ public class GUIManager {
         Inventory inv = Bukkit.createInventory(null, config.getInt("size", 27), ColorUtils.colorize(title));
         
         addItem(inv, config, "player-info", player, target, streak);
-        addItem(inv, config, "statistics", player, player, null);
+        addItem(inv, config, "statistics", player, target, streak);
         addItem(inv, config, "restore-info", player, target, streak);
         addItem(inv, config, "missions-info", player, target, streak);
         addItem(inv, config, "send-gift", player, target, streak);

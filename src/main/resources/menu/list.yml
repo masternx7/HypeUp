@@ -8,10 +8,7 @@ partner-item:
   lore:
     - ""
     - "{fire-color}{fire-display} &#FFD93D({streak} days)"
-    - "&#00FF00ʀᴇꜱᴛᴏʀᴇ: &#FFD93D{restore}/{max}"
-    - "&#00FF00ʟᴀꜱᴛ: &#FFD93D{last}"
     - ""
-    - "&#FF6B6Bᴄʟɪᴄᴋ ᴛᴏ ꜱᴇɴᴅ ɪᴛᴇᴍꜱ"
   sound: UI_BUTTON_CLICK
 
 partner-slots:

@@ -1,4 +1,4 @@
-title: "&#FF6B6B&lHypeUp &#FFD93D&l- &r{target}"
+title: "&0{target}"
 size: 27
 
 player-info:
@@ -8,10 +8,9 @@ player-info:
   name: "&#FFD93D{target}"
   lore:
     - ""
-    - "{fire-color}{fire-display}"
-    - "&#FFD93D{streak} days streak"
-    - ""
+    - "{fire-color}{fire-display} &#FFD93D({streak} days)"
     - "&#FF6B6B{fire-description}"
+    - ""
 
 statistics:
   slot: 11
