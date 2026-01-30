@@ -27,6 +27,7 @@ item-slots:
 partner-info:
   slot: 4
   material: PLAYER_HEAD
+  # custom-model-data: 0
   skull-owner: "{target}"
   name: "&#FFD93D<smallcaps>{target}</smallcaps>"
   lore:
@@ -39,6 +40,7 @@ partner-info:
 confirm:
   slot: 48
   material: LIME_CONCRETE
+  # custom-model-data: 0
   name: "&#00FF00&l<smallcaps>Confirm send</smallcaps>"
   lore:
     - ""
@@ -48,6 +50,7 @@ confirm:
 cancel:
   slot: 50
   material: RED_CONCRETE
+  # custom-model-data: 0
   name: "&#FF0000&l<smallcaps>Cancel</smallcaps>"
   lore:
     - ""
@@ -57,6 +60,7 @@ cancel:
 border:
   enabled: true
   material: GRAY_STAINED_GLASS_PANE
+  # custom-model-data: 0
   name: " "
   slots:
     - 0

@@ -4,6 +4,7 @@ size: 27
 player-info:
   slot: 4
   material: PLAYER_HEAD
+  # custom-model-data: 0
   skull-owner: "{target}"
   name: "&#FFD93D&l<smallcaps>{target}</smallcaps>"
   lore:
@@ -15,6 +16,7 @@ player-info:
 statistics:
   slot: 11
   material: BOOK
+  # custom-model-data: 0
   name: "&#FFD93D&l<smallcaps>Statistics</smallcaps>"
   lore:
     - ""
@@ -25,6 +27,7 @@ statistics:
 restore-info:
   slot: 13
   material: TOTEM_OF_UNDYING
+  # custom-model-data: 0
   name: "&#FFD93D&l<smallcaps>Restore</smallcaps>"
   lore:
     - ""
@@ -36,6 +39,7 @@ restore-info:
 missions-info:
   slot: 15
   material: WRITABLE_BOOK
+  # custom-model-data: 0
   name: "&#FFD93D&l<smallcaps>Today's missions</smallcaps>"
   lore:
     - ""
@@ -48,6 +52,7 @@ missions-info:
 send-gift:
   slot: 22
   material: CHEST
+  # custom-model-data: 0
   name: "&#FFE49B&l<smallcaps>Send items</smallcaps>"
   lore:
     - ""
@@ -57,6 +62,7 @@ send-gift:
 back:
   slot: 18
   material: ARROW
+  # custom-model-data: 0
   name: "&#FFD93D&l← <smallcaps>Back</smallcaps>"
   lore:
     - ""
@@ -66,6 +72,7 @@ back:
 close:
   slot: 26
   material: BARRIER
+  # custom-model-data: 0
   name: "&#FF0000&l<smallcaps>Close</smallcaps>"
   lore:
     - ""
@@ -75,6 +82,7 @@ close:
 border:
   enabled: true
   material: YELLOW_STAINED_GLASS_PANE
+  # custom-model-data: 0
   name: " "
   slots:
     - 0

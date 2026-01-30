@@ -4,6 +4,7 @@ size: 54
 partner-item:
   material: PLAYER_HEAD
   skull-owner: "{target}"
+  # custom-model-data: 0
   name: "&#FFD93D&l<smallcaps>{target}</smallcaps>"
   lore:
     - ""
@@ -45,6 +46,7 @@ partner-slots:
 no-partners:
   slot: 22
   material: BARRIER
+  # custom-model-data: 0
   name: "&#FF0000<smallcaps>No fire partners</smallcaps>"
   lore:
     - ""
@@ -55,6 +57,7 @@ no-partners:
 close:
   slot: 49
   material: BARRIER
+  # custom-model-data: 0
   name: "&#FF0000<smallcaps>Close</smallcaps>"
   lore:
     - "&#FFD93D<smallcaps>Click to close GUI</smallcaps>"
@@ -63,6 +66,7 @@ close:
 border:
   enabled: true
   material: ORANGE_STAINED_GLASS_PANE
+  # custom-model-data: 0
   name: " "
   slots:
     - 0
