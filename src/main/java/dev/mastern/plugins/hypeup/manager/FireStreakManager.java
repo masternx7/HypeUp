@@ -65,14 +65,18 @@ public class FireStreakManager {
     public FireStreak getOrCreateStreak(UUID player1, UUID player2) {
         String key = getStreakKey(player1, player2);
         
-        return activeStreaks.computeIfAbsent(key, k -> {
-            FireStreak streak = database.loadFireStreak(player1, player2);
-            if (streak == null) {
-                streak = new FireStreak(player1, player2);
-                database.saveFireStreak(streak);
-            }
-            return streak;
-        });
+        if (activeStreaks.containsKey(key)) {
+            return activeStreaks.get(key);
+        }
+        
+        FireStreak streak = database.loadFireStreak(player1, player2);
+        if (streak == null) {
+            streak = new FireStreak(player1, player2);
+            database.saveFireStreak(streak);
+        }
+        
+        activeStreaks.put(key, streak);
+        return streak;
     }
     
 
@@ -148,8 +152,27 @@ public class FireStreakManager {
         return colorHelper.getPlaceholders(streak);
     }
     
+    public Map<String, String> getFireColorPlaceholders(int streak, boolean isMissionCompletedToday) {
+        return colorHelper.getPlaceholders(streak, isMissionCompletedToday);
+    }
+    
     public Map<String, String> getFireColorPlaceholders(FireStreak streak) {
         return colorHelper.getPlaceholders(streak.getCurrentStreak());
+    }
+    
+    /**
+     * Check if today's missions are completed for this streak
+     * Returns true if fire was lit today (lastFire is today)
+     */
+    public boolean isMissionCompletedToday(FireStreak streak) {
+        if (streak == null || streak.getLastFire() == null) {
+            return false;
+        }
+        
+        LocalDate lastFireDate = streak.getLastFire().atZone(timeZone).toLocalDate();
+        LocalDate today = LocalDate.now(timeZone);
+        
+        return lastFireDate.equals(today);
     }
     
     public boolean hasSameIp(Player player1, Player player2) {
@@ -275,5 +298,30 @@ public class FireStreakManager {
     
     public ZoneId getTimeZone() {
         return timeZone;
+    }
+    
+    public void checkAndResetDailyMissions(FireStreak streak) {
+        if (streak.getLastFire() == null) return;
+        
+        LocalDate today = LocalDate.now(timeZone);
+        LocalDate lastFireDate = streak.getLastFire().atZone(timeZone).toLocalDate();
+        
+        if (lastFireDate.equals(today) || lastFireDate.isAfter(today)) {
+            return;
+        }
+        
+        LocalDate lastResetDate = streak.getLastResetDate() != null 
+            ? streak.getLastResetDate().atZone(timeZone).toLocalDate() 
+            : null;
+        
+        if (lastResetDate != null && (lastResetDate.equals(today) || lastResetDate.isAfter(today))) {
+            return;
+        }
+        
+        streak.resetDailyProgress();
+        
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            database.saveFireStreak(streak);
+        });
     }
 }

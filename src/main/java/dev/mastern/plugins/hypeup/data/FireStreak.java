@@ -24,6 +24,8 @@ public class FireStreak {
     private boolean giftCompleted2;
     private LocalDateTime lastChatTime2;
     
+    private LocalDateTime lastResetDate;
+    
     public FireStreak(UUID player1, UUID player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -41,6 +43,7 @@ public class FireStreak {
         this.shiftProgress2 = 0;
         this.giftCompleted2 = false;
         this.lastChatTime2 = null;
+        this.lastResetDate = null;
     }
     
     public UUID getPlayer1() {
@@ -172,6 +175,7 @@ public class FireStreak {
         this.shiftProgress2 = 0;
         this.giftCompleted2 = false;
         this.lastChatTime2 = null;
+        this.lastResetDate = LocalDateTime.now();
     }
     
     public boolean areMissionsCompleted(boolean chatEnabled, int minMessages,
@@ -207,4 +211,7 @@ public class FireStreak {
     public void setShiftProgress2(int progress) { this.shiftProgress2 = progress; }
     public void setGiftCompleted2(boolean completed) { this.giftCompleted2 = completed; }
     public void setLastChatTime2(LocalDateTime time) { this.lastChatTime2 = time; }
+    
+    public LocalDateTime getLastResetDate() { return lastResetDate; }
+    public void setLastResetDate(LocalDateTime date) { this.lastResetDate = date; }
 }

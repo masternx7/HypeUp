@@ -86,17 +86,19 @@ public class GUIManager {
         addBorder(inv, config);
         addItem(inv, config, "close", player, player, null);
         
-        List<FireStreak> streaks = fireManager.getPlayerStreaks(player.getUniqueId());
+        List<FireStreak> allStreaks = fireManager.getPlayerStreaks(player.getUniqueId());
         
-        if (streaks.isEmpty()) {
+        List<FireStreak> activeStreaks = allStreaks.stream()
+            .filter(s -> s.getCurrentStreak() > 0)
+            .toList();
+        
+        if (activeStreaks.isEmpty()) {
             addItem(inv, config, "no-partners", player, player, null);
         } else {
             List<Integer> partnerSlots = config.getIntegerList("partner-slots");
             int index = 0;
-            for (FireStreak streak : streaks) {
+            for (FireStreak streak : activeStreaks) {
                 if (index >= partnerSlots.size()) break;
-                
-                if (streak.getCurrentStreak() <= 0) continue;
                 
                 UUID partnerUUID = streak.getPartner(player.getUniqueId());
                 
@@ -196,7 +198,17 @@ public class GUIManager {
         }
         
         FireStreak streak = fireManager.getOrCreateStreak(player.getUniqueId(), targetUUID);
+        
+        if (fireManager.isExpired(streak)) {
+            messages.sendMessage(player, "fire.restore-failed", Map.of("max", String.valueOf(fireManager.getMaxRestoreCount()), "days", String.valueOf(plugin.getConfig().getInt("fire-streak.days-to-restore", 3))));
+            returnGiftItems(player);
+            player.closeInventory();
+            return;
+        }
+        
         streak.setGiftCompleted(player.getUniqueId(), true);
+        
+        fireManager.checkAndResetDailyMissions(streak);
         
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             plugin.getDatabaseManager().saveFireStreak(streak);
@@ -285,10 +297,10 @@ public class GUIManager {
         placeholders.put("player", player.getName());
         placeholders.put("target", target.getName() != null ? target.getName() : "Unknown");
         
-        List<FireStreak> playerStreaks = fireManager.getPlayerStreaks(player.getUniqueId());
-        placeholders.put("total-partners", String.valueOf(playerStreaks.size()));
-        placeholders.put("max-streak", String.valueOf(playerStreaks.stream().mapToInt(FireStreak::getMaxStreak).max().orElse(0)));
-        placeholders.put("total-fires", String.valueOf(playerStreaks.stream().mapToInt(FireStreak::getCurrentStreak).sum()));
+        List<FireStreak> targetStreaks = fireManager.getPlayerStreaks(target.getUniqueId());
+        placeholders.put("total-partners", String.valueOf(targetStreaks.size()));
+        placeholders.put("max-streak", String.valueOf(targetStreaks.stream().mapToInt(FireStreak::getMaxStreak).max().orElse(0)));
+        placeholders.put("total-fires", String.valueOf(targetStreaks.stream().mapToInt(FireStreak::getCurrentStreak).sum()));
         
         if (streak != null) {
             placeholders.put("streak", String.valueOf(streak.getCurrentStreak()));
@@ -328,7 +340,8 @@ public class GUIManager {
             placeholders.put("shift-status", (shiftEnabled && streak.getShiftProgress(player.getUniqueId()) >= requiredShifts) ? completedStatus : incompleteStatus);
             placeholders.put("gift-status", (giftEnabled && streak.isGiftCompleted(player.getUniqueId())) ? completedStatus : incompleteStatus);
             
-            placeholders.putAll(fireManager.getFireColorPlaceholders(streak.getCurrentStreak()));
+            boolean isMissionCompletedToday = fireManager.isMissionCompletedToday(streak);
+            placeholders.putAll(fireManager.getFireColorPlaceholders(streak.getCurrentStreak(), isMissionCompletedToday));
         } else {
             placeholders.put("streak", "0");
             placeholders.put("restore", "0");
@@ -340,9 +353,8 @@ public class GUIManager {
             placeholders.put("chat-status", incompleteStatus);
             placeholders.put("shift-status", incompleteStatus);
             placeholders.put("gift-status", incompleteStatus);
-            placeholders.put("fire-color", "&#FFFFFF");
-            placeholders.put("fire-display", "No Fire");
-            placeholders.put("fire-description", "");
+            
+            placeholders.putAll(fireManager.getFireColorPlaceholders(0, false));
         }
         
         return placeholders;
@@ -358,19 +370,6 @@ public class GUIManager {
     }
     
     private void checkMissionCompletion(FireStreak streak, Player player1, Player player2) {
-        if (streak.getLastFire() != null) {
-            java.time.ZoneId timeZone = fireManager.getTimeZone();
-            java.time.LocalDate lastFireDate = streak.getLastFire().atZone(timeZone).toLocalDate();
-            java.time.LocalDate today = java.time.LocalDate.now(timeZone);
-            
-            if (today.isAfter(lastFireDate) && (streak.getChatProgress(player1.getUniqueId()) > 0 || streak.getShiftProgress(player1.getUniqueId()) > 0 || streak.isGiftCompleted(player1.getUniqueId()) || streak.getChatProgress(player2.getUniqueId()) > 0 || streak.getShiftProgress(player2.getUniqueId()) > 0 || streak.isGiftCompleted(player2.getUniqueId()))) {
-                streak.resetDailyProgress();
-                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-                    plugin.getDatabaseManager().saveFireStreak(streak);
-                });
-            }
-        }
-        
         boolean chatEnabled = plugin.getConfig().getBoolean("missions.chat.enabled", true);
         boolean shiftEnabled = plugin.getConfig().getBoolean("missions.shift.enabled", true);
         boolean giftEnabled = plugin.getConfig().getBoolean("missions.item-gift.enabled", true);

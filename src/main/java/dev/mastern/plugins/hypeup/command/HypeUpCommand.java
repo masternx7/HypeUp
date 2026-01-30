@@ -187,6 +187,14 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                 ));
                 
                 FireStreak streak = fireManager.getOrCreateStreak(player.getUniqueId(), target.getUniqueId());
+                
+                if (fireManager.isExpired(streak)) {
+                    messages.sendMessage(player, "fire.restore-failed", Map.of("max", String.valueOf(fireManager.getMaxRestoreCount()), "days", String.valueOf(plugin.getConfig().getInt("fire-streak.days-to-restore", 3))));
+                    return true;
+                }
+                
+                fireManager.checkAndResetDailyMissions(streak);
+                
                 int minMessages = plugin.getConfig().getInt("missions.chat.min-messages", 2);
                 
                 if (streak.getChatProgress(player.getUniqueId()) < minMessages) {
@@ -278,4 +286,5 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
         
         return completions;
     }
+    
 }

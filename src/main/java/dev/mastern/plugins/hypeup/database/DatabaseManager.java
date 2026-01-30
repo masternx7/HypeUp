@@ -44,6 +44,7 @@ public class DatabaseManager {
                 shift_progress2 INT DEFAULT 0,
                 gift_completed2 BOOLEAN DEFAULT FALSE,
                 last_chat_time2 TIMESTAMP,
+                last_reset_date TIMESTAMP,
                 UNIQUE KEY unique_pair (player1, player2),
                 INDEX idx_player1 (player1),
                 INDEX idx_player2 (player2)
@@ -75,8 +76,8 @@ public class DatabaseManager {
             (player1, player2, current_streak, max_streak, last_interaction, 
              last_fire, restore_count, expired, 
              chat_progress1, shift_progress1, gift_completed1, last_chat_time1,
-             chat_progress2, shift_progress2, gift_completed2, last_chat_time2)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+             chat_progress2, shift_progress2, gift_completed2, last_chat_time2, last_reset_date)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE
             current_streak = VALUES(current_streak),
             max_streak = VALUES(max_streak),
@@ -91,7 +92,8 @@ public class DatabaseManager {
             chat_progress2 = VALUES(chat_progress2),
             shift_progress2 = VALUES(shift_progress2),
             gift_completed2 = VALUES(gift_completed2),
-            last_chat_time2 = VALUES(last_chat_time2)
+            last_chat_time2 = VALUES(last_chat_time2),
+            last_reset_date = VALUES(last_reset_date)
         """;
         
         try (Connection conn = connection.getConnection();
@@ -113,6 +115,7 @@ public class DatabaseManager {
             stmt.setInt(14, streak.getShiftProgress2());
             stmt.setBoolean(15, streak.isGiftCompleted2());
             stmt.setTimestamp(16, streak.getLastChatTime2() != null ? Timestamp.valueOf(streak.getLastChatTime2()) : null);
+            stmt.setTimestamp(17, streak.getLastResetDate() != null ? Timestamp.valueOf(streak.getLastResetDate()) : null);
             
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -132,8 +135,8 @@ public class DatabaseManager {
             (player1, player2, current_streak, max_streak, last_interaction, 
              last_fire, restore_count, expired, 
              chat_progress1, shift_progress1, gift_completed1, last_chat_time1,
-             chat_progress2, shift_progress2, gift_completed2, last_chat_time2)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+             chat_progress2, shift_progress2, gift_completed2, last_chat_time2, last_reset_date)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE
             current_streak = VALUES(current_streak),
             max_streak = VALUES(max_streak),
@@ -148,7 +151,8 @@ public class DatabaseManager {
             chat_progress2 = VALUES(chat_progress2),
             shift_progress2 = VALUES(shift_progress2),
             gift_completed2 = VALUES(gift_completed2),
-            last_chat_time2 = VALUES(last_chat_time2)
+            last_chat_time2 = VALUES(last_chat_time2),
+            last_reset_date = VALUES(last_reset_date)
         """;
         
         try (Connection conn = connection.getConnection();
@@ -173,6 +177,7 @@ public class DatabaseManager {
                 stmt.setInt(14, streak.getShiftProgress2());
                 stmt.setBoolean(15, streak.isGiftCompleted2());
                 stmt.setTimestamp(16, streak.getLastChatTime2() != null ? Timestamp.valueOf(streak.getLastChatTime2()) : null);
+                stmt.setTimestamp(17, streak.getLastResetDate() != null ? Timestamp.valueOf(streak.getLastResetDate()) : null);
                 
                 stmt.addBatch();
             }
@@ -266,6 +271,9 @@ public class DatabaseManager {
         
         Timestamp lastChatTime2 = rs.getTimestamp("last_chat_time2");
         if (lastChatTime2 != null) streak.setLastChatTime2(lastChatTime2.toLocalDateTime());
+        
+        Timestamp lastResetDate = rs.getTimestamp("last_reset_date");
+        if (lastResetDate != null) streak.setLastResetDate(lastResetDate.toLocalDateTime());
         
         return streak;
     }

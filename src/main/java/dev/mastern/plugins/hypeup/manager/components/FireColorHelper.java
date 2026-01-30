@@ -14,7 +14,18 @@ public class FireColorHelper {
     }
     
     public Map<String, String> getPlaceholders(int streak) {
+        return getPlaceholders(streak, true);
+    }
+    
+    public Map<String, String> getPlaceholders(int streak, boolean isMissionCompletedToday) {
         Map<String, String> placeholders = new HashMap<>();
+        
+        if (streak == 0 || (!isMissionCompletedToday && streak > 0)) {
+            placeholders.put("fire-color", plugin.getConfig().getString("fire-streak.colors.days.extinguished.color", "&#323232"));
+            placeholders.put("fire-display", plugin.getConfig().getString("fire-streak.colors.days.extinguished.display", "Fire"));
+            placeholders.put("fire-description", plugin.getConfig().getString("fire-streak.colors.days.extinguished.description", "Extinguished Fire"));
+            return placeholders;
+        }
         
         if (plugin.getConfig().contains("fire-streak.colors.days")) {
             List<String> rangeKeys = plugin.getConfig().getConfigurationSection("fire-streak.colors.days")
@@ -42,7 +53,6 @@ public class FireColorHelper {
             }
         }
         
-        // Default to extinguished color if no range matches
         placeholders.put("fire-color", plugin.getConfig().getString("fire-streak.colors.days.extinguished.color", "&#FFFFFF"));
         placeholders.put("fire-display", plugin.getConfig().getString("fire-streak.colors.days.extinguished.display", ""));
         placeholders.put("fire-description", plugin.getConfig().getString("fire-streak.colors.days.extinguished.description", ""));

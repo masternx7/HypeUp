@@ -83,14 +83,16 @@ public class GUIListener implements Listener {
         int index = partnerSlots.indexOf(slot);
         
         if (index >= 0) {
-            List<FireStreak> streaks = plugin.getFireStreakManager().getPlayerStreaks(player.getUniqueId());
-            if (index < streaks.size()) {
-                FireStreak streak = streaks.get(index);
+            List<FireStreak> allStreaks = plugin.getFireStreakManager().getPlayerStreaks(player.getUniqueId());
+            List<FireStreak> activeStreaks = allStreaks.stream()
+                .filter(s -> s.getCurrentStreak() > 0)
+                .toList();
+            if (index < activeStreaks.size()) {
+                FireStreak streak = activeStreaks.get(index);
                 UUID partnerId = streak.getPartner(player.getUniqueId());
                 Player partner = Bukkit.getPlayer(partnerId);
                 
                 if (partner != null && partner.isOnline()) {
-                    player.closeInventory();
                     guiManager.openInfoGUI(player, partner);
                     guiManager.playSoundFromConfig(player, listConfig.getConfigurationSection("partner-item"));
                 }
@@ -113,11 +115,9 @@ public class GUIListener implements Listener {
         int closeSlot = infoConfig.getInt("close.slot", 26);
         
         if (slot == sendGiftSlot) {
-            player.closeInventory();
             guiManager.openGiftGUI(player, target);
             guiManager.playSoundFromConfig(player, infoConfig.getConfigurationSection("send-gift"));
         } else if (slot == backSlot) {
-            player.closeInventory();
             guiManager.openListGUI(player);
             guiManager.playSoundFromConfig(player, infoConfig.getConfigurationSection("back"));
         } else if (slot == closeSlot) {

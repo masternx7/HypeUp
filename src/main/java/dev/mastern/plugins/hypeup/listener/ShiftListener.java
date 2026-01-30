@@ -49,12 +49,18 @@ public class ShiftListener implements Listener {
         List<Player> nearbyPlayers = findNearbyPlayers(player);
         
         for (Player target : nearbyPlayers) {
-            // Check same IP
             if (fireManager.hasSameIp(player, target)) {
                 continue;
             }
             
             FireStreak streak = fireManager.getOrCreateStreak(player.getUniqueId(), target.getUniqueId());
+            
+            if (fireManager.isExpired(streak)) {
+                continue; 
+            }
+            
+            fireManager.checkAndResetDailyMissions(streak);
+            
             if (streak.getShiftProgress(player.getUniqueId()) >= requiredInteractions) {
                 continue;
             }
@@ -106,19 +112,6 @@ public class ShiftListener implements Listener {
     }
     
     private void checkMissionCompletion(FireStreak streak, Player player1, Player player2) {
-        if (streak.getLastFire() != null) {
-            java.time.ZoneId timeZone = fireManager.getTimeZone();
-            java.time.LocalDate lastFireDate = streak.getLastFire().atZone(timeZone).toLocalDate();
-            java.time.LocalDate today = java.time.LocalDate.now(timeZone);
-            
-            if (today.isAfter(lastFireDate) && (streak.getChatProgress(player1.getUniqueId()) > 0 || streak.getShiftProgress(player1.getUniqueId()) > 0 || streak.isGiftCompleted(player1.getUniqueId()) || streak.getChatProgress(player2.getUniqueId()) > 0 || streak.getShiftProgress(player2.getUniqueId()) > 0 || streak.isGiftCompleted(player2.getUniqueId()))) {
-                streak.resetDailyProgress();
-                Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-                    plugin.getDatabaseManager().saveFireStreak(streak);
-                });
-            }
-        }
-        
         boolean chatEnabled = plugin.getConfig().getBoolean("missions.chat.enabled", true);
         boolean shiftEnabled = plugin.getConfig().getBoolean("missions.shift.enabled", true);
         boolean giftEnabled = plugin.getConfig().getBoolean("missions.item-gift.enabled", true);
@@ -129,4 +122,5 @@ public class ShiftListener implements Listener {
             fireManager.completeFire(streak, player1, player2);
         }
     }
+    
 }
