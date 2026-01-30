@@ -8,69 +8,69 @@ player-info:
   name: "&#FFD93D{target}"
   lore:
     - ""
-    - "{fire-color}{fire-display} &#FFD93D({streak} days)"
+    - "{fire-color}{fire-display} &#FFD93D({streak} ᴅᴀʏꜱ)"
     - "&#FF6B6B{fire-description}"
     - ""
 
 statistics:
   slot: 11
   material: BOOK
-  name: "&#FFD93D&lStatistics"
+  name: "&#FFD93D&lꜱᴛᴀᴛɪꜱᴛɪᴄꜱ"
   lore:
     - ""
-    - "&#00FF00Total Partners: &#FFD93D{total-partners}"
-    - "&#00FF00Max Streak: &#FFD93D{max-streak} &#00FF00days"
-    - "&#00FF00Total Fires: &#FFD93D{total-fires}"
+    - "&#00FF00ᴛᴏᴛᴀʟ ᴘᴀʀᴛɴᴇʀꜱ: &#FFD93D{total-partners}"
+    - "&#00FF00ᴍᴀx ꜱᴛʀᴇᴀᴋ: &#FFD93D{max-streak} &#00FF00ᴅᴀʏꜱ"
+    - "&#00FF00ᴛᴏᴛᴀʟ ꜰɪʀᴇꜱ: &#FFD93D{total-fires}"
 
 restore-info:
   slot: 13
   material: TOTEM_OF_UNDYING
-  name: "&#FFD93D&lRestore"
+  name: "&#FFD93D&lʀᴇꜱᴛᴏʀᴇ"
   lore:
     - ""
-    - "&#00FF00Used: &#FFD93D{restore}/{max}"
-    - "&#00FF00Time left: &#FFD93D{restore-days} &#00FF00days"
+    - "&#00FF00ᴜꜱᴇᴅ: &#FFD93D{restore}/{max}"
+    - "&#00FF00ᴛɪᴍᴇ ʟᴇꜰᴛ: &#FFD93D{restore-days} &#00FF00ᴅᴀʏꜱ "
     - ""
-    - "&#FF6B6BYou can restore fire"
-    - "&#FF6B6Bwithin {restore-days} days"
+    - "&#FF6B6Bʏᴏᴜ ᴄᴀɴ ʀᴇꜱᴛᴏʀᴇ ꜰɪʀᴇ"
+    - "&#FF6B6Bᴡɪᴛʜɪɴ {restore-days} ᴅᴀʏꜱ"
 
 missions-info:
   slot: 15
   material: WRITABLE_BOOK
-  name: "&#FFD93D&lToday's Missions"
+  name: "&#FFD93Dᴛᴏᴅᴀʏ'ꜱ ᴍɪꜱꜱɪᴏɴꜱ"
   lore:
     - ""
-    - "&#00FF00Chat: {chat-status}"
-    - "&#00FF00Shift: {shift-status}"
-    - "&#00FF00Gift: {gift-status}"
+    - "&#00FF00ᴄʜᴀᴛ: {chat-status}"
+    - "&#00FF00ꜱʜɪꜰᴛ: {shift-status}"
+    - "&#00FF00ɢɪꜰᴛ: {gift-status}"
     - ""
-    - "&#FF6B6BComplete all missions to light fire!"
+    - "&#FF6B6Bᴄᴏᴍᴘʟᴇᴛᴇ ᴀʟʟ ᴍɪꜱꜱɪᴏɴꜱ ᴛᴏ ʟɪɢʜᴛ ꜰɪʀᴇ!"
 
 send-gift:
   slot: 22
   material: CHEST
-  name: "&#00FF00&lSend Items"
+  name: "&#00FF00&lꜱᴇɴᴅ ɪᴛᴇᴍꜱ"
   lore:
     - ""
-    - "&#FFD93DClick to open send items GUI"
+    - "&#FFD93Dᴄʟɪᴄᴋ ᴛᴏ ᴏᴘᴇɴ ꜱᴇɴᴅ ɪᴛᴇᴍꜱ ɢᴜɪ"
   sound: UI_BUTTON_CLICK
 
 back:
   slot: 18
   material: ARROW
-  name: "&#FFD93D&l← Back"
+  name: "&#FFD93D&l← ʙᴀᴄᴋ"
   lore:
     - ""
-    - "&#FFD93DClick to go back"
+    - "&#FFD93Dᴄʟɪᴄᴋ ᴛᴏ ɢᴏ ʙᴀᴄᴋ"
   sound: UI_BUTTON_CLICK
 
 close:
   slot: 26
   material: BARRIER
-  name: "&#FF0000&lClose"
+  name: "&#FF0000&lᴄʟᴏꜱᴇ"
   lore:
     - ""
-    - "&#FFD93DClick to close GUI"
+    - "&#FFD93Dᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴏꜱᴇ ɢᴜɪ"
   sound: BLOCK_NOTE_BLOCK_BASS
 
 border:

@@ -7,7 +7,7 @@ partner-item:
   name: "&#FFD93D{target}"
   lore:
     - ""
-    - "{fire-color}{fire-display} &#FFD93D({streak} days)"
+    - "{fire-color}{fire-display} &#FFD93D({streak} ᴅᴀʏꜱ)"
     - ""
   sound: UI_BUTTON_CLICK
 

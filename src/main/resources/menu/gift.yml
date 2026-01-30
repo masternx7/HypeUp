@@ -1,4 +1,4 @@
-title: "&#FF6B6BHypeUp &#FFD93D- Send Items to {target}"
+title: "&0ꜱᴇɴᴅ ɪᴛᴇᴍꜱ ᴛᴏ {target}"
 size: 54
 
 item-slots:
@@ -31,27 +31,27 @@ partner-info:
   name: "&#FFD93D{target}"
   lore:
     - ""
-    - "{fire-color}{fire-display} &#FFD93D({streak} days)"
-    - "&#00FF00Restore: &#FFD93D{restore}/{max}"
+    - "{fire-color}{fire-display} &#FFD93D({streak} ᴅᴀʏꜱ)"
+    - "&#00FF00ʀᴇꜱᴛᴏʀᴇ: &#FFD93D{restore}/{max}"
     - ""
-    - "&#FF6B6BPlace items below to send"
+    - "&#FF6B6Bᴘʟᴀᴄᴇ ɪᴛᴇᴍꜱ ʙᴇʟᴏᴡ ᴛᴏ ꜱᴇɴᴅ"
 
 confirm:
   slot: 48
   material: LIME_CONCRETE
-  name: "&#00FF00&lConfirm Send"
+  name: "&#00FF00&lᴄᴏɴꜰɪʀᴍ ꜱᴇɴᴅ"
   lore:
     - ""
-    - "&#00FF00Click to send items to {target}"
+    - "&#00FF00ᴄʟɪᴄᴋ ᴛᴏ ꜱᴇɴᴅ ɪᴛᴇᴍꜱ ᴛᴏ {target}"
   sound: ENTITY_PLAYER_LEVELUP
 
 cancel:
   slot: 50
   material: RED_CONCRETE
-  name: "&#FF0000&lCancel"
+  name: "&#FF0000&lᴄᴀɴᴄᴇʟ"
   lore:
     - ""
-    - "&#FFD93DClick to close GUI"
+    - "&#FFD93Dᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴏꜱᴇ ɢᴜɪ"
   sound: BLOCK_NOTE_BLOCK_BASS
 
 border:
