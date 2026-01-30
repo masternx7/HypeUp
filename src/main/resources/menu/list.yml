@@ -8,6 +8,7 @@ partner-item:
   lore:
     - ""
     - "{fire-color}{fire-display} &#FFD93D({streak} ᴅᴀʏꜱ)"
+    - "&#FFE49Bꜱᴛᴀᴛᴜꜱ: {status}"
     - ""
   sound: UI_BUTTON_CLICK
 

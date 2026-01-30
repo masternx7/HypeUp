@@ -1,8 +1,10 @@
 package dev.mastern.plugins.hypeup.gui.components;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
 import dev.mastern.plugins.hypeup.utils.ColorUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -51,7 +53,14 @@ public class ItemBuilder {
         }
         
         if (material == Material.PLAYER_HEAD && meta instanceof SkullMeta skullMeta && skullOwner != null) {
-            skullMeta.setOwningPlayer(skullOwner);
+            String playerName = placeholders != null ? placeholders.get("target") : null;
+            if (playerName != null && !playerName.equals("Unknown")) {
+                PlayerProfile profile = Bukkit.createProfile(skullOwner.getUniqueId(), playerName);
+                profile.complete(false);
+                skullMeta.setPlayerProfile(profile);
+            } else {
+                skullMeta.setOwningPlayer(skullOwner);
+            }
         }
         
         String name = replacePlaceholders(config.getString("name", ""), placeholders);

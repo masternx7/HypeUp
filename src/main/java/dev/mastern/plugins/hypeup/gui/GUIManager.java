@@ -278,6 +278,10 @@ public class GUIManager {
         if (itemConfig == null) return;
         
         Map<String, String> placeholders = createPlaceholders(player, partner, streak);
+        
+        String statusKey = partner.isOnline() ? "status.online" : "status.offline";
+        placeholders.put("status", messages.getMessage(statusKey, null));
+        
         inv.setItem(slot, ItemBuilder.createSkull(itemConfig, partner, placeholders));
     }
     
@@ -298,7 +302,18 @@ public class GUIManager {
         placeholders.put("target", target.getName() != null ? target.getName() : "Unknown");
         
         List<FireStreak> targetStreaks = fireManager.getPlayerStreaks(target.getUniqueId());
-        placeholders.put("total-partners", String.valueOf(targetStreaks.size()));
+        
+        boolean chatEnabled = plugin.getConfig().getBoolean("missions.chat.enabled", true);
+        int minMessages = plugin.getConfig().getInt("missions.chat.min-messages", 50);
+        boolean shiftEnabled = plugin.getConfig().getBoolean("missions.shift.enabled", true);
+        int requiredShifts = plugin.getConfig().getInt("missions.shift.required-interactions", 2);
+        boolean giftEnabled = plugin.getConfig().getBoolean("missions.gift.enabled", true);
+        
+        long completedPartners = targetStreaks.stream()
+            .filter(s -> s.areMissionsCompleted(chatEnabled, minMessages, shiftEnabled, requiredShifts, giftEnabled))
+            .count();
+        
+        placeholders.put("total-partners", String.valueOf(completedPartners));
         placeholders.put("max-streak", String.valueOf(targetStreaks.stream().mapToInt(FireStreak::getMaxStreak).max().orElse(0)));
         placeholders.put("total-fires", String.valueOf(targetStreaks.stream().mapToInt(FireStreak::getCurrentStreak).sum()));
         
@@ -327,14 +342,8 @@ public class GUIManager {
                 placeholders.put("last", messages.getMessage("last-fire-time.never", null));
             }
             
-            boolean chatEnabled = plugin.getConfig().getBoolean("missions.chat.enabled", true);
-            boolean shiftEnabled = plugin.getConfig().getBoolean("missions.shift.enabled", true);
-            boolean giftEnabled = plugin.getConfig().getBoolean("missions.item-gift.enabled", true);
-            int minMessages = plugin.getConfig().getInt("missions.chat.min-messages", 2);
-            int requiredShifts = plugin.getConfig().getInt("missions.shift.required-interactions", 2);
-            
-            String completedStatus = messages.getMessage("missions.status.completed", null);
-            String incompleteStatus = messages.getMessage("missions.status.incomplete", null);
+            String completedStatus = messages.getMessage("status.completed", null);
+            String incompleteStatus = messages.getMessage("status.incomplete", null);
             
             placeholders.put("chat-status", (chatEnabled && streak.getChatProgress(player.getUniqueId()) >= minMessages) ? completedStatus : incompleteStatus);
             placeholders.put("shift-status", (shiftEnabled && streak.getShiftProgress(player.getUniqueId()) >= requiredShifts) ? completedStatus : incompleteStatus);
@@ -349,7 +358,7 @@ public class GUIManager {
             placeholders.put("restore-days", String.valueOf(plugin.getConfig().getInt("fire-streak.days-to-restore", 3)));
             placeholders.put("last", messages.getMessage("last-fire-time.never", null));
             
-            String incompleteStatus = messages.getMessage("missions.status.incomplete", null);
+            String incompleteStatus = messages.getMessage("status.incomplete", null);
             placeholders.put("chat-status", incompleteStatus);
             placeholders.put("shift-status", incompleteStatus);
             placeholders.put("gift-status", incompleteStatus);

@@ -137,7 +137,6 @@ public class FireStreakManager {
         messages.sendMessage(player1, "fire.success", placeholders1);
         messages.sendMessage(player2, "fire.partner-success", placeholders2);
         
-        // Always send ignited message and check rewards from day 1
         messages.sendMultilineMessage(player1, "fire.ignited", placeholders1);
         messages.sendMultilineMessage(player2, "fire.partner-ignited", placeholders2);
         
