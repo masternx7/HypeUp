@@ -18,9 +18,9 @@ statistics:
   name: "&#FFD93D&lꜱᴛᴀᴛɪꜱᴛɪᴄꜱ"
   lore:
     - ""
-    - "&#00FF00ᴛᴏᴛᴀʟ ᴘᴀʀᴛɴᴇʀꜱ: &#FFD93D{total-partners}"
-    - "&#00FF00ᴍᴀx ꜱᴛʀᴇᴀᴋ: &#FFD93D{max-streak} &#00FF00ᴅᴀʏꜱ"
-    - "&#00FF00ᴛᴏᴛᴀʟ ꜰɪʀᴇꜱ: &#FFD93D{total-fires}"
+    - "&#FFE49Bᴛᴏᴛᴀʟ ᴘᴀʀᴛɴᴇʀꜱ: &#FFD93D{total-partners}"
+    - "&#FFE49Bᴍᴀx ꜱᴛʀᴇᴀᴋ: &#FFD93D{max-streak} &#FFE49Bᴅᴀʏꜱ"
+    - "&#FFE49Bᴛᴏᴛᴀʟ ꜰɪʀᴇꜱ: &#FFD93D{total-fires}"
 
 restore-info:
   slot: 13
@@ -28,8 +28,8 @@ restore-info:
   name: "&#FFD93D&lʀᴇꜱᴛᴏʀᴇ"
   lore:
     - ""
-    - "&#00FF00ᴜꜱᴇᴅ: &#FFD93D{restore}/{max}"
-    - "&#00FF00ᴛɪᴍᴇ ʟᴇꜰᴛ: &#FFD93D{restore-days} &#00FF00ᴅᴀʏꜱ "
+    - "&#FFE49Bᴜꜱᴇᴅ: &#FFD93D{restore}/{max}"
+    - "&#FFE49Bᴛɪᴍᴇ ʟᴇꜰᴛ: &#FFD93D{restore-days} &#FFE49Bᴅᴀʏꜱ "
     - ""
     - "&#FF6B6Bʏᴏᴜ ᴄᴀɴ ʀᴇꜱᴛᴏʀᴇ ꜰɪʀᴇ"
     - "&#FF6B6Bᴡɪᴛʜɪɴ {restore-days} ᴅᴀʏꜱ"
@@ -40,16 +40,16 @@ missions-info:
   name: "&#FFD93Dᴛᴏᴅᴀʏ'ꜱ ᴍɪꜱꜱɪᴏɴꜱ"
   lore:
     - ""
-    - "&#00FF00ᴄʜᴀᴛ: {chat-status}"
-    - "&#00FF00ꜱʜɪꜰᴛ: {shift-status}"
-    - "&#00FF00ɢɪꜰᴛ: {gift-status}"
+    - "&#FFE49Bᴄʜᴀᴛ: {chat-status}"
+    - "&#FFE49Bꜱʜɪꜰᴛ: {shift-status}"
+    - "&#FFE49Bɢɪꜰᴛ: {gift-status}"
     - ""
     - "&#FF6B6Bᴄᴏᴍᴘʟᴇᴛᴇ ᴀʟʟ ᴍɪꜱꜱɪᴏɴꜱ ᴛᴏ ʟɪɢʜᴛ ꜰɪʀᴇ!"
 
 send-gift:
   slot: 22
   material: CHEST
-  name: "&#00FF00&lꜱᴇɴᴅ ɪᴛᴇᴍꜱ"
+  name: "&#FFE49B&lꜱᴇɴᴅ ɪᴛᴇᴍꜱ"
   lore:
     - ""
     - "&#FFD93Dᴄʟɪᴄᴋ ᴛᴏ ᴏᴘᴇɴ ꜱᴇɴᴅ ɪᴛᴇᴍꜱ ɢᴜɪ"

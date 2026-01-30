@@ -53,7 +53,7 @@ fire-streak:
         display: "Fire"
         description: "Blazing Fire"
       extinguished:
-        color: "&#323232"
+        color: "&#646464"
         display: "Fire"
         description: "Extinguished Fire"
 
