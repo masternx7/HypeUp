@@ -24,7 +24,7 @@ A Minecraft plugin that brings TikTok's fire streak system to the game! Players 
 | `/hypeup admin give <player1> <player2> <amount>` | Add days to fire streak | `hypeup.admin` |
 | `/hypeup admin take <player1> <player2> <amount>` | Remove days from fire streak | `hypeup.admin` |
 | `/hypeup admin expired <player1> <player2>` | Set fire as expired (streak = 0) | `hypeup.admin` |
-| `/hypeup admin extinguish <player1> <player2>` | Extinguish fire but keep streak | `hypeup.admin` |
+| `/hypeup admin extinguishfire <player1> <player2>` | Extinguish fire but keep streak | `hypeup.admin` |
 | `/hypeup admin reset <player1> <player2>` | Reset daily missions | `hypeup.admin` |
 
 ## How to Light Fire
