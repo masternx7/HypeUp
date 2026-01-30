@@ -1,36 +1,35 @@
 # HEX Color: &#RRGGBB or <#RRGGBB>
-# Placeholder: {prefix}, {player}, {target}, {streak}, {days}, {count}
+# Placeholder: {prefix}, {player}, {target}, {streak}, {days}, {count}, <smallcaps>
 prefix: "&#FF6B6B&l[&#FFD93D&lHypeUp&#FF6B6B&l]&r"
 
 general:
-  reload-success: "{prefix} &#00FF00Configuration reloaded successfully!"
-  no-permission: "{prefix} &#FF0000You don't have permission to use this command!"
-  player-not-found: "{prefix} &#FF0000Player {player} not found!"
-  database-error: "{prefix} &#FF0000Database error occurred!"
-  only-player: "{prefix} &#FF0000This command can only be used by players!"
-
+  reload-success: "{prefix} &#00FF00<smallcaps>Configuration reloaded successfully!</smallcaps>"
+  no-permission: "{prefix} &#FF0000<smallcaps>You don't have permission to use this command!</smallcaps>"
+  player-not-found: "{prefix} &#FF0000<smallcaps>Player {player} not found!</smallcaps>"
+  database-error: "{prefix} &#FF0000<smallcaps>Database error occurred!</smallcaps>"
+  only-player: "{prefix} &#FF0000<smallcaps>This command can only be used by players!</smallcaps>"
 fire:
-  started: "{prefix} &#FFD93DYou started a fire streak with &#FF6B6B{target}&#FFD93D!"
-  partner-started: "{prefix} &#FF6B6B{player} &#FFD93Dstarted a fire streak with you!"
-  success: "{prefix} &#00FF00Successfully lit fire with &#FFD93D{target}&#00FF00!"
-  partner-success: "{prefix} &#00FF00You lit fire with &#FFD93D{player}&#00FF00!"
-  expired: "{prefix} &#FF0000Fire with {target} expired! You haven't lit it for {days} days"
-  partner-expired: "{prefix} &#FF0000Fire with {player} expired!"
-  restored: "{prefix} &#00FF00Successfully restored fire with {target}! ({count}/{max})"
-  partner-restored: "{prefix} &#00FF00{player} restored fire with you!"
-  restore-failed: "{prefix} &#FF0000Cannot restore fire! (Used all {max} restores or exceeded {days} days)"
-  same-ip-blocked: "{prefix} &#FF0000Cannot create fire streak with players on the same IP address!"
+  started: "{prefix} &#FFD93D<smallcaps>You started a fire streak with &#FF6B6B{target}&#FFD93D!</smallcaps>"
+  partner-started: "{prefix} &#FF6B6B<smallcaps>{player} &#FFD93Dstarted a fire streak with you!</smallcaps>"
+  success: "{prefix} &#00FF00<smallcaps>Successfully lit fire with &#FFD93D{target}&#00FF00!</smallcaps>"
+  partner-success: "{prefix} &#00FF00<smallcaps>You lit fire with &#FFD93D{player}&#00FF00!</smallcaps>"
+  expired: "{prefix} &#FF0000<smallcaps>Fire with {target} expired! You haven't lit it for {days} days</smallcaps>"
+  partner-expired: "{prefix} &#FF0000<smallcaps>Fire with {player} expired!</smallcaps>"
+  restored: "{prefix} &#00FF00<smallcaps>Successfully restored fire with {target}! ({count}/{max})</smallcaps>"
+  partner-restored: "{prefix} &#00FF00<smallcaps>{player} restored fire with you!</smallcaps>"
+  restore-failed: "{prefix} &#FF0000<smallcaps>Cannot restore fire! (Used all {max} restores or exceeded {days} days)</smallcaps>"
+  same-ip-blocked: "{prefix} &#FF0000<smallcaps>Cannot create fire streak with players on the same IP address!</smallcaps>"
   ignited: |
     &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
-    &#FFD93D&lFire lit with {target}!
-    &#00FF00Streak: &#FFD93D{streak} &#00FF00days
+    &#FFD93D&l<smallcaps>Fire lit with {target}!</smallcaps>
+    &#00FF00<smallcaps>Streak: &#FFD93D{streak} &#00FF00days</smallcaps>
     &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
   partner-ignited: |
     &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
-    &#FFD93D&lFire lit with {player}!
-    &#00FF00Streak: &#FFD93D{streak} &#00FF00days
+    &#FFD93D&l<smallcaps>Fire lit with {player}!</smallcaps>
+    &#00FF00<smallcaps>Streak: &#FFD93D{streak} &#00FF00days</smallcaps>
     &#FF6B6B&l━━━━━━━━━━━━━━━━━━━━
-  limit-reached: "{prefix} &#FF0000You already have {max} fire partners!"
+  limit-reached: "{prefix} &#FF0000<smallcaps>You already have {max} fire partners!</smallcaps>"
 
 status:
   online: "&#00FF00<smallcaps>Online</smallcaps>"
@@ -40,30 +39,30 @@ status:
 
 missions:
   chat:
-    progress: "{prefix} &#FFD93DChat Progress: &#FF6B6B{current}/{required}"
-    completed: "{prefix} &#00FF00Chat mission completed!"
-    spam-detected: "{prefix} &#FF0000Please wait before sending another message!"
-    too-far: "{prefix} &#FF0000{target} is too far away! Must be within distance"
-    message-received: "{prefix} &#FFD93D{player}: &#FF6B6B{message}"
+    progress: "{prefix} &#FFD93D<smallcaps>Chat Progress: &#FF6B6B{current}/{required}</smallcaps>"
+    completed: "{prefix} &#00FF00<smallcaps>Chat mission completed!</smallcaps>"
+    spam-detected: "{prefix} &#FF0000<smallcaps>Please wait before sending another message!</smallcaps>"
+    too-far: "{prefix} &#FF0000<smallcaps>{target} is too far away! Must be within distance</smallcaps>"
+    message-received: "{prefix} &#FFD93D<smallcaps>{player}: &#FF6B6B{message}</smallcaps>"
   
   shift:
-    progress: "{prefix} &#FFD93DShift Progress: &#FF6B6B{current}/{required}"
-    completed: "{prefix} &#00FF00Shift mission completed!"
-    too-far: "{prefix} &#FF0000You're too far away! Must be within {distance} blocks"
+    progress: "{prefix} &#FFD93D<smallcaps>Shift Progress: &#FF6B6B{current}/{required}</smallcaps>"
+    completed: "{prefix} &#00FF00<smallcaps>Shift mission completed!</smallcaps>"
+    too-far: "{prefix} &#FF0000<smallcaps>You're too far away! Must be within {distance} blocks</smallcaps>"
   
   gift:
-    sent: "{prefix} &#00FF00Sent items to {target}!"
-    received: "{prefix} &#FFD93DYou received items from {player}!"
-    completed: "{prefix} &#00FF00Gift mission completed!"
-    too-many-items: "{prefix} &#FF0000Too many items! Maximum 2304 items allowed."
-    inventory-full: "{prefix} &#FFD93DSome items were dropped because inventory is full."
-    too-far: "{prefix} &#FF0000{target} is too far away! Must be within {distance} blocks"
+    sent: "{prefix} &#00FF00<smallcaps>Sent items to {target}!</smallcaps>"
+    received: "{prefix} &#FFD93D<smallcaps>You received items from {player}!</smallcaps>"
+    completed: "{prefix} &#00FF00<smallcaps>Gift mission completed!</smallcaps>"
+    too-many-items: "{prefix} &#FF0000<smallcaps>Too many items! Maximum 2304 items allowed.</smallcaps>"
+    inventory-full: "{prefix} &#FFD93D<smallcaps>Some items were dropped because inventory is full.</smallcaps>"
+    too-far: "{prefix} &#FF0000<smallcaps>{target} is too far away! Must be within {distance} blocks</smallcaps>"
 
 rewards:
   received: |
-    &#FFD93D&l━━━━━ Reward ━━━━━
-    &#00FF00You maintained a {streak}-day streak!
-    &#FFD93DSpecial reward received!
+    &#FFD93D&l━━━━━ <smallcaps>Reward</smallcaps> ━━━━━
+    &#00FF00<smallcaps>You maintained a {streak}-day streak!</smallcaps>
+    &#FFD93D<smallcaps>Special reward received!</smallcaps>
     &#FFD93D&l━━━━━━━━━━━━━━━━━━━
 
 last-fire-time:
@@ -83,7 +82,7 @@ commands:
     &#FFD93D/hypeup reload &#FF6B6B- Reload config
     &#FF6B6B&l━━━━━━━━━━━━━━━━
   
-  usage: "{prefix} &#FF0000Usage: {usage}"
+  usage: "{prefix} &#FF0000<smallcaps>Usage</smallcaps>: {usage}"
 
 admin:
   help: |
@@ -94,25 +93,25 @@ admin:
     &#FFD93D/hu admin expired <player1> <player2>
     &#FFD93D/hu admin extinguishfire <player1> <player2>
     &#FFD93D/hu admin resetmission <player1> <player2>
-  players-not-found: "{prefix} &#FF0000One or both players not found!"
-  amount-invalid: "{prefix} &#FF0000Amount must be a number!"
-  no-streak: "{prefix} &#FF0000No fire streak found between these players!"
-  unknown-command: "{prefix} &#FF0000Unknown admin command!"
+  players-not-found: "{prefix} &#FF0000<smallcaps>One or both players not found!</smallcaps>"
+  amount-invalid: "{prefix} &#FF0000<smallcaps>Amount must be a number!</smallcaps>"
+  no-streak: "{prefix} &#FF0000<smallcaps>No fire streak found between these players!</smallcaps>"
+  unknown-command: "{prefix} &#FF0000<smallcaps>Unknown admin command!</smallcaps>"
   set:
-    usage: "{prefix} &#FF0000Usage: /hu admin set <player1> <player2> <amount>"
-    success: "{prefix} &#00FF00Set fire streak between {player1} and {player2} to {amount}"
+    usage: "{prefix} &#FF0000<smallcaps>Usage</smallcaps>: /hu admin set <player1> <player2> <amount>"
+    success: "{prefix} &#00FF00<smallcaps>Set fire streak between {player1} and {player2} to {amount}</smallcaps>"
   give:
-    usage: "{prefix} &#FF0000Usage: /hu admin give <player1> <player2> <amount>"
-    success: "{prefix} &#00FF00Added {amount} days to fire streak between {player1} and {player2}"
+    usage: "{prefix} &#FF0000<smallcaps>Usage</smallcaps>: /hu admin give <player1> <player2> <amount>"
+    success: "{prefix} &#00FF00<smallcaps>Added {amount} days to fire streak between {player1} and {player2}</smallcaps>"
   take:
-    usage: "{prefix} &#FF0000Usage: /hu admin take <player1> <player2> <amount>"
-    success: "{prefix} &#00FF00Removed {amount} days from fire streak between {player1} and {player2}"
+    usage: "{prefix} &#FF0000<smallcaps>Usage</smallcaps>: /hu admin take <player1> <player2> <amount>"
+    success: "{prefix} &#00FF00<smallcaps>Removed {amount} days from fire streak between {player1} and {player2}</smallcaps>"
   expired:
-    usage: "{prefix} &#FF0000Usage: /hu admin expired <player1> <player2>"
-    success: "{prefix} &#00FF00Set fire streak between {player1} and {player2} as expired"
+    usage: "{prefix} &#FF0000<smallcaps>Usage</smallcaps>: /hu admin expired <player1> <player2>"
+    success: "{prefix} &#00FF00<smallcaps>Set fire streak between {player1} and {player2} as expired</smallcaps>"
   extinguishfire:
-    usage: "{prefix} &#FF0000Usage: /hu admin extinguishfire <player1> <player2>"
-    success: "{prefix} &#00FF00Extinguished fire between {player1} and {player2} (streak kept: {streak} days)"
+    usage: "{prefix} &#FF0000<smallcaps>Usage</smallcaps>: /hu admin extinguishfire <player1> <player2>"
+    success: "{prefix} &#00FF00<smallcaps>Extinguished fire between {player1} and {player2} (streak kept: {streak} days)</smallcaps>"
   resetmission:
-    usage: "{prefix} &#FF0000Usage: /hu admin resetmission <player1> <player2>"
-    success: "{prefix} &#00FF00Reset missions for fire streak between {player1} and {player2}"
+    usage: "{prefix} &#FF0000<smallcaps>Usage</smallcaps>: /hu admin resetmission <player1> <player2>"
+    success: "{prefix} &#00FF00<smallcaps>Reset missions for fire streak between {player1} and {player2}</smallcaps>"

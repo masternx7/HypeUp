@@ -45,19 +45,19 @@ partner-slots:
 no-partners:
   slot: 22
   material: BARRIER
-  name: "&#FF0000ɴᴏ ꜰɪʀᴇ ᴘᴀʀᴛɴᴇʀꜱ"
+  name: "&#FF0000<smallcaps>No fire partners</smallcaps>"
   lore:
     - ""
-    - "&#FFD93Dꜱᴛᴀʀᴛ ᴀ ꜰɪʀᴇ ꜱᴛʀᴇᴀᴋ"
-    - "&#FFD93Dᴡɪᴛʜ ʏᴏᴜʀ ꜰʀɪᴇɴᴅꜱ!"
+    - "&#FFD93D<smallcaps>start a fire streak</smallcaps>"
+    - "&#FFD93D<smallcaps>with your friend!</smallcaps>"
     - ""
 
 close:
   slot: 49
   material: BARRIER
-  name: "&#FF0000ᴄʟᴏꜱᴇ"
+  name: "&#FF0000<smallcaps>Close</smallcaps>"
   lore:
-    - "&#FFD93Dᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴏꜱᴇ ɢᴜɪ"
+    - "&#FFD93D<smallcaps>Click to close GUI</smallcaps>"
   sound: BLOCK_NOTE_BLOCK_BASS
 
 border:

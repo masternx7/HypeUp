@@ -336,8 +336,7 @@ public class GUIManager {
             } else {
                 placeholders.put("last", messages.getMessage("last-fire-time.never", null));
             }
-            
-            // Get mission config values
+
             boolean chatEnabled = plugin.getConfig().getBoolean("missions.chat.enabled", true);
             int minMessages = plugin.getConfig().getInt("missions.chat.min-messages", 50);
             boolean shiftEnabled = plugin.getConfig().getBoolean("missions.shift.enabled", true);

@@ -1,4 +1,4 @@
-title: "&0ꜱᴇɴᴅ ɪᴛᴇᴍꜱ ᴛᴏ {target}"
+title: "&0<smallcaps>Send items to {target}</smallcaps>"
 size: 54
 
 item-slots:
@@ -32,26 +32,26 @@ partner-info:
   lore:
     - ""
     - "{fire-color}{fire-display} &#FFD93D({streak} ᴅᴀʏꜱ)"
-    - "&#00FF00ʀᴇꜱᴛᴏʀᴇ: &#FFD93D{restore}/{max}"
+    - "&#00FF00<smallcaps>Restore:</smallcaps> &#FFD93D{restore}/{max}"
     - ""
-    - "&#FF6B6Bᴘʟᴀᴄᴇ ɪᴛᴇᴍꜱ ʙᴇʟᴏᴡ ᴛᴏ ꜱᴇɴᴅ"
+    - "&#FF6B6B<smallcaps>Place items below to send</smallcaps>"
 
 confirm:
   slot: 48
   material: LIME_CONCRETE
-  name: "&#00FF00&lᴄᴏɴꜰɪʀᴍ ꜱᴇɴᴅ"
+  name: "&#00FF00&l<smallcaps>Confirm send</smallcaps>"
   lore:
     - ""
-    - "&#00FF00ᴄʟɪᴄᴋ ᴛᴏ ꜱᴇɴᴅ ɪᴛᴇᴍꜱ ᴛᴏ {target}"
+    - "&#00FF00<smallcaps>Click to send items to {target}</smallcaps>"
   sound: ENTITY_PLAYER_LEVELUP
 
 cancel:
   slot: 50
   material: RED_CONCRETE
-  name: "&#FF0000&lᴄᴀɴᴄᴇʟ"
+  name: "&#FF0000&l<smallcaps>Cancel</smallcaps>"
   lore:
     - ""
-    - "&#FFD93Dᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴏꜱᴇ ɢᴜɪ"
+    - "&#FFD93D<smallcaps>Click to close GUI</smallcaps>"
   sound: BLOCK_NOTE_BLOCK_BASS
 
 border:
