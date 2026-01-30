@@ -34,8 +34,8 @@ fire:
 
 missions:
   status:
-    completed: "&#00FF00Completed"
-    incomplete: "&#FF0000Incomplete"
+    completed: "&#00FF00<smallcaps>Completed</smallcaps>"
+    incomplete: "&#FF0000<smallcaps>Incomplete</smallcaps>"
   
   chat:
     progress: "{prefix} &#FFD93DChat Progress: &#FF6B6B{current}/{required}"

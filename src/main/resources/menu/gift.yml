@@ -28,7 +28,7 @@ partner-info:
   slot: 4
   material: PLAYER_HEAD
   skull-owner: "{target}"
-  name: "&#FFD93D{target}"
+  name: "&#FFD93D<smallcaps>{target}</smallcaps>"
   lore:
     - ""
     - "{fire-color}{fire-display} &#FFD93D({streak} ᴅᴀʏꜱ)"
