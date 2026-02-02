@@ -95,6 +95,11 @@ public class GUIListener implements Listener {
                 if (partner != null && partner.isOnline()) {
                     guiManager.openInfoGUI(player, partner);
                     guiManager.playSoundFromConfig(player, listConfig.getConfigurationSection("partner-item"));
+                } else {
+                    String partnerName = Bukkit.getOfflinePlayer(partnerId).getName();
+                    if (partnerName == null) partnerName = "Unknown";
+                    plugin.getMessageManager().sendMessage(player, "general.player-not-found", 
+                        java.util.Map.of("player", partnerName));
                 }
             }
         }
