@@ -4,6 +4,7 @@ import dev.mastern.plugins.hypeup.command.HypeUpCommand;
 import dev.mastern.plugins.hypeup.database.DatabaseManager;
 import dev.mastern.plugins.hypeup.expansion.HypeUpPlaceholder;
 import dev.mastern.plugins.hypeup.gui.GUIManager;
+import dev.mastern.plugins.hypeup.libraries.LibraryLoader;
 import dev.mastern.plugins.hypeup.listener.ChatListener;
 import dev.mastern.plugins.hypeup.listener.GUIListener;
 import dev.mastern.plugins.hypeup.listener.ShiftListener;
@@ -26,6 +27,11 @@ public final class HypeUp extends JavaPlugin {
     private GUIManager guiManager;
     
     private int expirationCheckTask;
+
+    @Override
+    public void onLoad() {
+        new LibraryLoader(this).loadLibraries();
+    }
 
     @Override
     public void onEnable() {
