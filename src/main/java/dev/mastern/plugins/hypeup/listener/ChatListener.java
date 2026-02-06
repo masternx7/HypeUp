@@ -4,6 +4,7 @@ import dev.mastern.plugins.hypeup.HypeUp;
 import dev.mastern.plugins.hypeup.data.FireStreak;
 import dev.mastern.plugins.hypeup.manager.FireStreakManager;
 import dev.mastern.plugins.hypeup.manager.MessageManager;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
@@ -91,7 +92,7 @@ public class ChatListener implements Listener {
             streak.setChatProgress(sender.getUniqueId(), streak.getChatProgress(sender.getUniqueId()) + 1);
             streak.setLastChatTime(sender.getUniqueId(), LocalDateTime.now());
             
-            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            SchedulerUtil.runAsync(plugin, () -> {
                 plugin.getDatabaseManager().saveFireStreak(streak);
             });
             

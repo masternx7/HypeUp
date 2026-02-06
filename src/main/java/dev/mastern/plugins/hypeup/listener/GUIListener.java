@@ -3,6 +3,7 @@ package dev.mastern.plugins.hypeup.listener;
 import dev.mastern.plugins.hypeup.HypeUp;
 import dev.mastern.plugins.hypeup.data.FireStreak;
 import dev.mastern.plugins.hypeup.gui.GUIManager;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

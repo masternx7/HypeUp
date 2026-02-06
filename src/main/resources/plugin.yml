@@ -2,6 +2,7 @@ name: HypeUp
 version: '${project.version}'
 main: dev.mastern.plugins.hypeup.HypeUp
 api-version: '1.21'
+folia-supported: true
 authors: [ MasterN ]
 description: TikTok-style fire streak system for Minecraft
 softdepend: [ PlaceholderAPI ]

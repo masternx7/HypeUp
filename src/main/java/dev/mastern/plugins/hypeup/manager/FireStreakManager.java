@@ -5,6 +5,7 @@ import dev.mastern.plugins.hypeup.data.FireStreak;
 import dev.mastern.plugins.hypeup.database.DatabaseManager;
 import dev.mastern.plugins.hypeup.manager.components.FireColorHelper;
 import dev.mastern.plugins.hypeup.manager.components.FireExpirationHandler;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -120,7 +121,7 @@ public class FireStreakManager {
         streak.setLastInteraction(now);
         streak.setExpired(false);
         
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        SchedulerUtil.runAsync(plugin, () -> {
             database.saveFireStreak(streak);
         });
         
@@ -214,7 +215,7 @@ public class FireStreakManager {
         streak.setRestoreCount(streak.getRestoreCount() + 1);
         streak.setLastInteraction(now);
         
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        SchedulerUtil.runAsync(plugin, () -> {
             database.saveFireStreak(streak);
         });
         
@@ -263,7 +264,7 @@ public class FireStreakManager {
         if (activeStreaks.isEmpty()) return;
         
         List<FireStreak> streakList = new ArrayList<>(activeStreaks.values());
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        SchedulerUtil.runAsync(plugin, () -> {
             database.saveFireStreaksBatch(streakList);
         });
     }
@@ -312,7 +313,7 @@ public class FireStreakManager {
         
         streak.resetDailyProgress();
         
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        SchedulerUtil.runAsync(plugin, () -> {
             database.saveFireStreak(streak);
         });
     }

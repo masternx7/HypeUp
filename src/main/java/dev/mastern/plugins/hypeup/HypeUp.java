@@ -11,6 +11,7 @@ import dev.mastern.plugins.hypeup.listener.ShiftListener;
 import dev.mastern.plugins.hypeup.manager.FireStreakManager;
 import dev.mastern.plugins.hypeup.manager.MessageManager;
 import dev.mastern.plugins.hypeup.manager.RewardManager;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,7 +27,7 @@ public final class HypeUp extends JavaPlugin {
     private RewardManager rewardManager;
     private GUIManager guiManager;
     
-    private int expirationCheckTask;
+    private SchedulerUtil.SchedulerTask expirationCheckTask;
 
     @Override
     public void onLoad() {
@@ -87,8 +88,8 @@ public final class HypeUp extends JavaPlugin {
         getLogger().info("║         HypeUp - Shutting Down...         ║");
         getLogger().info("╚═══════════════════════════════════════════╝");
         
-        if (expirationCheckTask != -1) {
-            Bukkit.getScheduler().cancelTask(expirationCheckTask);
+        if (expirationCheckTask != null) {
+            expirationCheckTask.cancel();
         }
         
         if (fireStreakManager != null) {
@@ -135,11 +136,11 @@ public final class HypeUp extends JavaPlugin {
     
     private void startTasks() {
         int checkInterval = getConfig().getInt("general.check-interval-minutes", 5);
-        long ticks = checkInterval * 60 * 20L;
+        long delayMinutes = checkInterval;
         
-        expirationCheckTask = Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
+        expirationCheckTask = SchedulerUtil.runAsyncRepeating(this, () -> {
             fireStreakManager.checkExpiredStreaks();
-        }, ticks, ticks).getTaskId();
+        }, delayMinutes, delayMinutes, java.util.concurrent.TimeUnit.MINUTES);
     }
     
     // Getters

@@ -4,6 +4,7 @@ import dev.mastern.plugins.hypeup.HypeUp;
 import dev.mastern.plugins.hypeup.data.FireStreak;
 import dev.mastern.plugins.hypeup.manager.FireStreakManager;
 import dev.mastern.plugins.hypeup.manager.MessageManager;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -69,7 +70,7 @@ public class ShiftListener implements Listener {
             streak.setShiftProgress(player.getUniqueId(), streak.getShiftProgress(player.getUniqueId()) + 1);
             recentInteractions.put(interactionKey, LocalDateTime.now());
             
-            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            SchedulerUtil.runAsync(plugin, () -> {
                 plugin.getDatabaseManager().saveFireStreak(streak);
             });
             

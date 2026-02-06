@@ -7,6 +7,7 @@ import dev.mastern.plugins.hypeup.gui.components.SoundPlayer;
 import dev.mastern.plugins.hypeup.manager.FireStreakManager;
 import dev.mastern.plugins.hypeup.manager.MessageManager;
 import dev.mastern.plugins.hypeup.utils.ColorUtils;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -210,7 +211,7 @@ public class GUIManager {
         
         fireManager.checkAndResetDailyMissions(streak);
         
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        SchedulerUtil.runAsync(plugin, () -> {
             plugin.getDatabaseManager().saveFireStreak(streak);
         });
         

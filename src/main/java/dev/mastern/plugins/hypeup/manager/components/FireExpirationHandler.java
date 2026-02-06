@@ -3,6 +3,7 @@ package dev.mastern.plugins.hypeup.manager.components;
 import dev.mastern.plugins.hypeup.data.FireStreak;
 import dev.mastern.plugins.hypeup.database.DatabaseManager;
 import dev.mastern.plugins.hypeup.manager.MessageManager;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,7 +43,7 @@ public class FireExpirationHandler {
         streak.setExpired(true);
         streak.setCurrentStreak(0);
         
-        Bukkit.getScheduler().runTaskAsynchronously(JavaPlugin.getProvidingPlugin(getClass()), () -> {
+        SchedulerUtil.runAsync(JavaPlugin.getProvidingPlugin(getClass()), () -> {
             database.saveFireStreak(streak);
         });
     }

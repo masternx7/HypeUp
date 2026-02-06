@@ -6,6 +6,7 @@ import dev.mastern.plugins.hypeup.gui.GUIManager;
 import dev.mastern.plugins.hypeup.manager.FireStreakManager;
 import dev.mastern.plugins.hypeup.manager.MessageManager;
 import dev.mastern.plugins.hypeup.utils.ColorUtils;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -201,7 +202,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                     streak.setChatProgress(player.getUniqueId(), streak.getChatProgress(player.getUniqueId()) + 1);
                     streak.setLastChatTime(player.getUniqueId(), java.time.LocalDateTime.now());
                     
-                    Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                    SchedulerUtil.runAsync(plugin, () -> {
                         plugin.getDatabaseManager().saveFireStreak(streak);
                     });
                     
@@ -299,7 +300,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                             streak.setMaxStreak(amount);
                         }
                         
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                        SchedulerUtil.runAsync(plugin, () -> {
                             plugin.getDatabaseManager().saveFireStreak(streak);
                         });
                         
@@ -349,7 +350,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                             streak.setMaxStreak(newAmount);
                         }
                         
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                        SchedulerUtil.runAsync(plugin, () -> {
                             plugin.getDatabaseManager().saveFireStreak(streak);
                         });
                         
@@ -398,7 +399,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                         int newAmount = Math.max(0, streak.getCurrentStreak() - amount);
                         streak.setCurrentStreak(newAmount);
                         
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                        SchedulerUtil.runAsync(plugin, () -> {
                             plugin.getDatabaseManager().saveFireStreak(streak);
                         });
                         
@@ -432,7 +433,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                         streak.setExpired(true);
                         streak.setCurrentStreak(0);
                         
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                        SchedulerUtil.runAsync(plugin, () -> {
                             plugin.getDatabaseManager().saveFireStreak(streak);
                         });
                         
@@ -466,7 +467,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                         streak.resetDailyProgress();
                         streak.setLastFire(null);
                         
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                        SchedulerUtil.runAsync(plugin, () -> {
                             plugin.getDatabaseManager().saveFireStreak(streak);
                         });
                         
@@ -499,7 +500,7 @@ public class HypeUpCommand implements CommandExecutor, TabCompleter {
                         
                         streak.resetDailyProgress();
                         
-                        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                        SchedulerUtil.runAsync(plugin, () -> {
                             plugin.getDatabaseManager().saveFireStreak(streak);
                         });
                         

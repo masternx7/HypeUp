@@ -1,6 +1,7 @@
 package dev.mastern.plugins.hypeup.manager;
 
 import dev.mastern.plugins.hypeup.HypeUp;
+import dev.mastern.plugins.hypeup.utils.SchedulerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -53,7 +54,10 @@ public class RewardManager {
         for (String command : commands) {
             command = command.replace("%player%", player.getName());
             
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+            final String cmd = command;
+            SchedulerUtil.runCommand(plugin, () -> {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
+            });
         }
         
         Map<String, String> placeholders = new HashMap<>();
